@@ -1,11 +1,12 @@
 using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class InputManager : Singleton<InputManager>
 {
     private GameInput gameInput;
 
-    public event Action<InputAction.CallbackContext> OnMenu_performed;
+    public event Action<InputAction.CallbackContext> OnMove_performed;
 
     public override void Awake()
     {
@@ -23,7 +24,7 @@ public class InputManager : Singleton<InputManager>
 
     private void Move_performed(InputAction.CallbackContext obj)
     {
-        OnMenu_performed?.Invoke(obj);
+        OnMove_performed?.Invoke(obj);
     }
 
     private void OnEnable()
@@ -39,6 +40,5 @@ public class InputManager : Singleton<InputManager>
     private void OnDestroy()
     {
         gameInput.Ship.Move.performed -= Move_performed;
-
     }
 }
