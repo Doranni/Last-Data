@@ -1,0 +1,12 @@
+.Debug_Label {
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 200px;
+    font-size: 18px;
+    color: rgba(210, 210, 210, 255);
+}
+
+.Debug_Line {
+}
