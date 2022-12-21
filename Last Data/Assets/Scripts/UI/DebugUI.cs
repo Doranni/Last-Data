@@ -4,8 +4,6 @@ using UnityEngine.UIElements;
 [RequireComponent(typeof(UIDocument))]
 public class DebugUI : MonoBehaviour
 {
-    [SerializeField] private ShipMovement shipMovement;
-
     private VisualElement debugScreen;
     private Label label_shipSpeed;
 
@@ -21,6 +19,6 @@ public class DebugUI : MonoBehaviour
 
     void Update()
     {
-        label_shipSpeed.text = shipMovement.Speed.ToString("0.00");
+        label_shipSpeed.text = GameManager.Instance.Speed.ToString("0.00");
     }
 }

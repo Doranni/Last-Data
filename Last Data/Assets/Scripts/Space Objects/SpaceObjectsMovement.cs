@@ -1,20 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpaceObjectsMovement : MonoBehaviour
 {
-    [SerializeField] private ShipMovement shipMovement;
+    [SerializeField] private float rotSpeed;
 
-    private Rigidbody rigidbody;
+    private Rigidbody SpaceOblectRB;
 
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
+        SpaceOblectRB = GetComponent<Rigidbody>();
+        SpaceOblectRB.angularVelocity = Random.insideUnitSphere * rotSpeed;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        rigidbody.AddForce(Vector3.back * shipMovement.Speed);
+        gameObject.transform.Translate(Vector3.back * GameManager.Instance.Speed * Time.deltaTime, Space.World);
     }
 }
