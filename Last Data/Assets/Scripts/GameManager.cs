@@ -3,10 +3,19 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private float speedMin, speedMax, accelerationTime;
+    [SerializeField] private Vector2 objDetectRange_min, objDetectRange_max;
+    [SerializeField] private Vector3 objExistRange_min, objExistRange_max;
 
     public float Speed { get; private set; }
     private bool input_Acceleration;
     private float accelerationStep;
+
+    public Vector2 ObjDetectRange_min => objDetectRange_min;
+    public Vector2 ObjDetectRange_max => objDetectRange_max;
+    public Vector3 ObjExistRange_min => objExistRange_min;
+    public Vector3 ObjExistRange_max => objExistRange_max;
+
+    public readonly string tag_asteroids = "Asteroid";
 
     void Start()
     {
@@ -28,6 +37,11 @@ public class GameManager : Singleton<GameManager>
     }
 
     void Update()
+    {
+        UpdateSpeed();
+    }
+
+    private void UpdateSpeed()
     {
         if (input_Acceleration && Speed < speedMax)
         {

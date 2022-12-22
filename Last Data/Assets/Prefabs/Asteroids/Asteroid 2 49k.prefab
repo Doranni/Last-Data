@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 7633637639165958154}
   - component: {fileID: 7633637639165958157}
   - component: {fileID: 7633637639165958156}
+  - component: {fileID: 786005273992056685}
+  - component: {fileID: 5439187361302895375}
   m_Layer: 0
   m_Name: Asteroid 2 49k
   m_TagString: Asteroid
@@ -117,7 +119,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: e259e812818c9074dbe1011ab1789aae, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 4fc98ba1e54e0f64aa2c95885ef7026e, type: 3}
 --- !u!114 &7633637639165958154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,7 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 1
-  outlineColor: {r: 0.22364914, g: 1, b: 0, a: 1}
+  outlineColor: {r: 0, g: 0, b: 0, a: 0}
   outlineWidth: 2
   precomputeOutline: 0
   bakeKeys: []
@@ -169,3 +171,29 @@ MonoBehaviour:
   colorClose: {r: 1, g: 0, b: 0, a: 1}
   colorBehind: {r: 0, g: 0, b: 0, a: 0}
   currentDistance: 0
+--- !u!114 &786005273992056685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7633637639165958144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8562ad039ca97d4ab1b5d1412ccedf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5439187361302895375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7633637639165958144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac9c4fdd30cfef146a127dd9ef0ab33a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boundary_min: {x: -160, y: -90, z: -50}
+  boundary_max: {x: 160, y: 90, z: 310}
