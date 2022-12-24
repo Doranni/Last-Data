@@ -1,8 +1,12 @@
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class EffectsController : MonoBehaviour
 {
-    [SerializeField] private ObjectPool dustExplosionPool, shipDamagePool;
+    [SerializeField] private ObjectPool asteroidExplosionPool, shipDamagePool;
+    [SerializeField] private AudioClip asteroidExplosionAudio, shipDamageAudio;
+
+    private AudioSource audioSource;
 
     private static EffectsController instance;
 
@@ -11,27 +15,34 @@ public class EffectsController : MonoBehaviour
         instance = this;
     }
 
-    public static void ShowDustExplosionEffect(Vector3 position)
+    private void Start()
     {
-        instance.ShowDustExplosionEffect_private(position);
+        audioSource = GetComponent<AudioSource>();
     }
 
-    private void ShowDustExplosionEffect_private(Vector3 position)
+    public static void PlayAsteroidExplosionEffect(Vector3 position)
     {
-        ParticleSystem effect = dustExplosionPool.GetPooledObject().GetComponent<ParticleSystem>();
+        instance.PlayAsteroidExplosionEffect_private(position);
+    }
+
+    private void PlayAsteroidExplosionEffect_private(Vector3 position)
+    {
+        ParticleSystem effect = asteroidExplosionPool.GetPooledObject().GetComponent<ParticleSystem>();
         effect.transform.position = position;
         effect.Play();
+        audioSource.PlayOneShot(asteroidExplosionAudio);
     }
 
-    public static void ShowShipDamageEffect(Vector3 position)
+    public static void PlayShipDamageEffect(Vector3 position)
     {
-        instance.ShowShipDamageEffect_private(position);
+        instance.PlayShipDamageEffect_private(position);
     }
 
-    private void ShowShipDamageEffect_private(Vector3 position)
+    private void PlayShipDamageEffect_private(Vector3 position)
     {
         ParticleSystem effect = shipDamagePool.GetPooledObject().GetComponent<ParticleSystem>();
         effect.transform.position = position;
         effect.Play();
+        audioSource.PlayOneShot(shipDamageAudio);
     }
 }

@@ -16,7 +16,7 @@ public class AsteroidController : MonoBehaviour
 
     private void Death()
     {
-        EffectsController.ShowDustExplosionEffect(transform.position);
+        EffectsController.PlayAsteroidExplosionEffect(transform.position);
         pooledObj.Release();
     }
 }

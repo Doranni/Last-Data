@@ -17,7 +17,7 @@ public class DamageController : MonoBehaviour
             collisionHealth.ChangeHealth(-damage.PassiveDamage);
             if (collision.gameObject.CompareTag(GameManager.Instance.tag_ship))
             {
-                EffectsController.ShowShipDamageEffect(collision.GetContact(0).point);
+                EffectsController.PlayShipDamageEffect(collision.GetContact(0).point);
             }
         }
     }
