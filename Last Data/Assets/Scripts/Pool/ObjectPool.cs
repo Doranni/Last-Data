@@ -30,7 +30,7 @@ public class ObjectPool : MonoBehaviour
     {
         if (list.Count == 0)
         {
-            PooledObject newInstance = Instantiate(objectToPool[Random.Range(0, objectToPool.Length)]);
+            PooledObject newInstance = Instantiate(objectToPool[Random.Range(0, objectToPool.Length)], gameObject.transform);
             newInstance.Pool = this;
             return newInstance;
         }

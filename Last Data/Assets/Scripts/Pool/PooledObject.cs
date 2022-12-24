@@ -6,7 +6,14 @@ public class PooledObject : MonoBehaviour
     public ObjectPool Pool { get => pool; set => pool = value; }
     public void Release()
     {
-        pool.ReturnToPool(this);
+        if (pool != null)
+        {
+            pool.ReturnToPool(this);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
 }

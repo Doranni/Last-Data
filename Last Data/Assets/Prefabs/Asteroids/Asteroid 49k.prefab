@@ -18,6 +18,10 @@ GameObject:
   - component: {fileID: 2102175325668750273}
   - component: {fileID: 6907371950361991144}
   - component: {fileID: 8870427280697399846}
+  - component: {fileID: 8617588332189556795}
+  - component: {fileID: 143517286528277403}
+  - component: {fileID: 7975065925256650093}
+  - component: {fileID: 4253824737175818165}
   m_Layer: 0
   m_Name: Asteroid 49k
   m_TagString: Asteroid
@@ -195,5 +199,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac9c4fdd30cfef146a127dd9ef0ab33a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boundary_min: {x: -160, y: -90, z: -50}
-  boundary_max: {x: 160, y: 90, z: 310}
+--- !u!114 &8617588332189556795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2102175325671846006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65d8f637dc9c75240988b42b5b34be94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 80
+--- !u!114 &143517286528277403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2102175325671846006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a21fa0cab9837da4fbcc42d8294c88cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  passiveDamage: 30
+--- !u!114 &7975065925256650093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2102175325671846006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20e9b94d0e5e9534181fba6d4e2a3df7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4253824737175818165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2102175325671846006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19a8a33722298ab4b84e5d771e2e2ac7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionEffect: {fileID: 0}

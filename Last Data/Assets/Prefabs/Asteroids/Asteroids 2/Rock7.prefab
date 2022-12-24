@@ -18,6 +18,10 @@ GameObject:
   - component: {fileID: 1716085469996766500}
   - component: {fileID: 4068611299316448099}
   - component: {fileID: 2257286295993012125}
+  - component: {fileID: 3260197243245270872}
+  - component: {fileID: 534246729902274557}
+  - component: {fileID: 6433589739202795207}
+  - component: {fileID: 3137461308355858620}
   m_Layer: 0
   m_Name: Rock7
   m_TagString: Asteroid
@@ -195,5 +199,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac9c4fdd30cfef146a127dd9ef0ab33a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boundary_min: {x: -160, y: -90, z: -50}
-  boundary_max: {x: 160, y: 90, z: 310}
+--- !u!114 &3260197243245270872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2491964224651406481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65d8f637dc9c75240988b42b5b34be94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 80
+--- !u!114 &534246729902274557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2491964224651406481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a21fa0cab9837da4fbcc42d8294c88cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  passiveDamage: 30
+--- !u!114 &6433589739202795207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2491964224651406481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20e9b94d0e5e9534181fba6d4e2a3df7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3137461308355858620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2491964224651406481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19a8a33722298ab4b84e5d771e2e2ac7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionEffect: {fileID: 0}

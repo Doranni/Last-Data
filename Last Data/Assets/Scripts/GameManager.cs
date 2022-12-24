@@ -15,7 +15,7 @@ public class GameManager : Singleton<GameManager>
     public Vector3 ObjExistRange_min => objExistRange_min;
     public Vector3 ObjExistRange_max => objExistRange_max;
 
-    public readonly string tag_asteroids = "Asteroid";
+    public readonly string tag_asteroids = "Asteroid", tag_ship = "Ship";
 
     void Start()
     {
