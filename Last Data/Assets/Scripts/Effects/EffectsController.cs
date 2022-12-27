@@ -4,7 +4,6 @@ using UnityEngine;
 public class EffectsController : MonoBehaviour
 {
     [SerializeField] private ObjectPool asteroidExplosionPool, shipDamagePool;
-    [SerializeField] private AudioClip asteroidExplosionAudio, shipDamageAudio;
 
     private AudioSource audioSource;
 
@@ -29,8 +28,7 @@ public class EffectsController : MonoBehaviour
     {
         ParticleSystem effect = asteroidExplosionPool.GetPooledObject().GetComponent<ParticleSystem>();
         effect.transform.position = position;
-        effect.Play();
-        audioSource.PlayOneShot(asteroidExplosionAudio);
+        effect.Play(true);
     }
 
     public static void PlayShipDamageEffect(Vector3 position)
@@ -42,7 +40,6 @@ public class EffectsController : MonoBehaviour
     {
         ParticleSystem effect = shipDamagePool.GetPooledObject().GetComponent<ParticleSystem>();
         effect.transform.position = position;
-        effect.Play();
-        audioSource.PlayOneShot(shipDamageAudio);
+        effect.Play(true);
     }
 }

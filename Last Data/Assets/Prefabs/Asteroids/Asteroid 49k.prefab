@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 143517286528277403}
   - component: {fileID: 7975065925256650093}
   - component: {fileID: 4253824737175818165}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Asteroid 49k
   m_TagString: Asteroid
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: d03d0c597bb388947bf16f564153364a, type: 3}
+  m_Mesh: {fileID: 4300000, guid: a06b7d8123805974182a9aee714fe013, type: 3}
 --- !u!114 &2102175325668750279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,4 +249,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19a8a33722298ab4b84e5d771e2e2ac7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionEffect: {fileID: 0}

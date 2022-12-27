@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 797086858924509933}
   - component: {fileID: 5569545718229140521}
   - component: {fileID: 7133488268923303489}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rock2
   m_TagString: Asteroid
   m_Icon: {fileID: 0}
@@ -249,4 +249,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19a8a33722298ab4b84e5d771e2e2ac7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionEffect: {fileID: 0}
