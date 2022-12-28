@@ -5,26 +5,36 @@ using UnityEngine;
 public class ShowDistance : MonoBehaviour
 {
     [Serializable]
-    private enum Distance
+    private enum DistanceType
     {
         undefined,
+        unreachable,
         far, 
         mid,
         close,
-        behind
+        behind,
+        interaction
     }
 
-    [SerializeField] private float distanceFar, distanceMid, distanceClose;
-    [SerializeField] private Color colorFar, colorMid, colorClose, colorBehind;
+    [SerializeField] private float distanceUnreachable, distanceFar, distanceMid, distanceClose;
+    [SerializeField] private Color colorFar, colorMid, colorClose, colorInteracted;
+        private Color colorBehind = new Color(0, 0, 0, 0);
+
+    private new Collider collider;
 
     private Outline outline;
 
-    [SerializeField] private Distance currentDistance;
+    [SerializeField] private DistanceType currentDistanceType;
 
-    private void Start()
+    private void Awake()
     {
         outline = GetComponent<Outline>();
-        currentDistance = Distance.undefined;
+        collider = GetComponent<Collider>();
+    }
+
+    private void Start()
+    { 
+        currentDistanceType = DistanceType.undefined;
         outline.OutlineColor = colorBehind;
         CheckDistance();
     }
@@ -36,39 +46,59 @@ public class ShowDistance : MonoBehaviour
 
     private void CheckDistance()
     {
-        if (transform.position.x > GameManager.Instance.ObjDetectRange_min.x &&
-            transform.position.x < GameManager.Instance.ObjDetectRange_max.x &&
-            transform.position.y > GameManager.Instance.ObjDetectRange_min.y &&
-            transform.position.y < GameManager.Instance.ObjDetectRange_max.y)
+        if (currentDistanceType != DistanceType.interaction)
         {
-            if (transform.position.z > distanceFar && currentDistance != Distance.far)
+            Vector3 point = collider.ClosestPoint(new Vector3(0, 0, transform.position.z));
+            if (point.x > GameManager.Instance.ObjDetectRange_min.x && point.x < GameManager.Instance.ObjDetectRange_max.x &&
+                point.y > GameManager.Instance.ObjDetectRange_min.y && point.y < GameManager.Instance.ObjDetectRange_max.y)
             {
-                currentDistance = Distance.far;
-                outline.OutlineColor = colorFar;
+                if (point.z > distanceUnreachable && currentDistanceType != DistanceType.unreachable)
+                {
+                    currentDistanceType = DistanceType.unreachable;
+                    outline.OutlineColor = colorBehind;
+                }
+                else if (point.z > distanceFar && point.z < distanceUnreachable && currentDistanceType != DistanceType.far)
+                {
+                    currentDistanceType = DistanceType.far;
+                    outline.OutlineColor = colorFar;
+                }
+                else if (point.z > distanceMid && point.z < distanceFar && currentDistanceType != DistanceType.mid)
+                {
+                    currentDistanceType = DistanceType.mid;
+                    outline.OutlineColor = colorMid;
+                }
+                else if (point.z > distanceClose && point.z < distanceMid && currentDistanceType != DistanceType.close)
+                {
+                    currentDistanceType = DistanceType.close;
+                    outline.OutlineColor = colorClose;
+                }
+                else if (point.z < distanceClose && currentDistanceType != DistanceType.behind)
+                {
+                    currentDistanceType = DistanceType.behind;
+                    outline.OutlineColor = colorBehind;
+                }
             }
-            else if (transform.position.z > distanceMid && transform.position.z < distanceFar
-                && currentDistance != Distance.mid)
+            else if (currentDistanceType != DistanceType.undefined)
             {
-                currentDistance = Distance.mid;
-                outline.OutlineColor = colorMid;
-            }
-            else if (transform.position.z > distanceClose && transform.position.z < distanceMid
-                && currentDistance != Distance.close)
-            {
-                currentDistance = Distance.close;
-                outline.OutlineColor = colorClose;
-            }
-            else if (transform.position.z < distanceClose && currentDistance != Distance.behind)
-            {
-                currentDistance = Distance.behind;
-                outline.OutlineColor = colorBehind;
+                ClearOutlining();
             }
         }
-        else if (currentDistance != Distance.undefined)
-        {
-            currentDistance = Distance.undefined;
-            outline.OutlineColor = colorBehind;
-        }
-        
+    }
+
+    public void ClearOutlining()
+    {
+        currentDistanceType = DistanceType.undefined;
+        outline.OutlineColor = colorBehind;
+    }
+
+    public void StartInteraction()
+    {
+        currentDistanceType = DistanceType.interaction;
+        outline.OutlineColor = colorInteracted;
+    }
+
+    public void StopInteraction()
+    {
+        ClearOutlining();
     }
 }

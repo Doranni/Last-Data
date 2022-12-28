@@ -8,9 +8,13 @@ public class Firing : MonoBehaviour
     [SerializeField] private LayerMask lMask_Asteroids;
 
     private LineRenderer laserLeft_lineRenderer, laserRight_lineRenderer;
-    private List<Collider> targetsLeft = new(), targetsRight = new();
-    private Collider targetLeft = null, targetRight = null;
+    private List<Collider> targetsLeftAvailable = new(), targetsRightAvailable = new();
+    private (bool isSet, AsteroidController astController, Collider collider) targetLeft = (false, null, null), 
+        targetRight = (false, null, null);
     private bool isLaserLeftActive = false, isLaserRightActive = false;
+
+    public (bool isSet, AsteroidController astController, Collider collider) TargetLeft => targetLeft;
+    public (bool isSet, AsteroidController astController, Collider collider) TargetRight => targetRight;
 
     private enum Laser
     {
@@ -19,15 +23,18 @@ public class Firing : MonoBehaviour
     }
 
 
+    private void Awake()
+    {
+        laserLeft_lineRenderer = laserLeft.GetComponentInChildren<LineRenderer>();
+        laserRight_lineRenderer = laserRight.GetComponentInChildren<LineRenderer>();
+    }
+
     void Start()
     {
         InputManager.Instance.OnFireLeft_started += _ => FireLeft_Started();
         InputManager.Instance.OnFireLeft_canceled += _ => FireLeft_Canceled();
         InputManager.Instance.OnFireRight_started += _ => FireRight_Started();
         InputManager.Instance.OnFireRight_canceled += _ => FireRight_Canceled();
-
-        laserLeft_lineRenderer = laserLeft.GetComponentInChildren<LineRenderer>();
-        laserRight_lineRenderer = laserRight.GetComponentInChildren<LineRenderer>();
 
         laserLeft.SetActive(false);
         laserRight.SetActive(false);
@@ -43,7 +50,8 @@ public class Firing : MonoBehaviour
     {
         isLaserRightActive = false;
         laserRight.SetActive(false);
-        ClearTargets(Laser.right);
+        ReleaseTarget(Laser.right);
+        targetsRightAvailable.Clear();
         SetLaserPoints(Laser.right, true);
     }
 
@@ -57,36 +65,77 @@ public class Firing : MonoBehaviour
     {
         isLaserLeftActive = false;
         laserLeft.SetActive(false);
-        ClearTargets(Laser.left);
+        ReleaseTarget(Laser.left);
+        targetsLeftAvailable.Clear();
         SetLaserPoints(Laser.left, true);
+    }
+
+    private void SetTarget(Collider target, Laser laser)
+    {
+        switch (laser)
+        {
+            case Laser.left:
+                {
+                    targetLeft = (true, target.GetComponent<AsteroidController>(), target);
+                    targetLeft.astController.LaserTargetSet();
+                    break;
+                }
+            default:
+                {
+                    targetRight = (true, target.GetComponent<AsteroidController>(), target);
+                    targetRight.astController.LaserTargetSet();
+                    break;
+                }
+        }
+    }
+
+    private void ReleaseTarget(Laser laser)
+    {
+        switch (laser)
+        {
+            case Laser.left:
+                {
+                    if (targetLeft.astController != null)
+                    {
+                        targetLeft.astController.LaserTargetRelease();
+                    }
+                    targetLeft = (false, null, null);
+                    break;
+                }
+            default:
+                {
+                    if (targetRight.astController != null)
+                    {
+                        targetRight.astController.LaserTargetRelease();
+                    }
+                    targetRight = (false, null, null);
+                    break;
+                }
+        }
     }
 
     private void LaserHit(Laser laser)
     {
         SetLaserPoints(laser);
-        Health targetHealth;
         switch (laser)
         {
             case Laser.left:
                 {
-                    if (targetLeft == null)
+                    if (targetLeft.isSet)
                     {
-                        return;
+                        targetLeft.astController.ChangeHealth(-laserPower * Time.deltaTime);
                     }
-                    targetHealth = targetLeft.GetComponent<Health>();
                     break;
                 }
             default:
                 {
-                    if (targetRight == null)
+                    if (targetRight.isSet)
                     {
-                        return;
+                        targetRight.astController.ChangeHealth(-laserPower * Time.deltaTime);
                     }
-                    targetHealth = targetRight.GetComponent<Health>();
                     break;
                 }
         }
-        targetHealth.ChangeHealth(-laserPower * Time.deltaTime);
     }
 
     private void SetLaserPoints(Laser laser, bool toReset = false)
@@ -100,32 +149,34 @@ public class Firing : MonoBehaviour
                 {
                     lineRenderer = laserLeft_lineRenderer;
                     laserTransform = laserLeft.transform;
-                    target = targetLeft;
+                    target = targetLeft.collider;
                     break;
                 }
             default:
                 {
                     lineRenderer = laserRight_lineRenderer;
                     laserTransform = laserRight.transform;
-                    target = targetRight;
+                    target = targetRight.collider;
                     break;
                 }
         }
-        if (toReset || target == null)
+        if (toReset || target == null || !target.enabled)
         {
             lineRenderer.SetPositions(new Vector3[] { Vector3.zero, Vector3.forward * 30, Vector3.forward * 70,
                 Vector3.forward * 100, });
         }
         else
         {
+            Vector3 closestPoint = target.ClosestPoint(new Vector3(laserTransform.position.x,
+                laserTransform.position.y, target.transform.position.z));
             lineRenderer.SetPositions(new Vector3[] { Vector3.zero,
-                laserTransform.InverseTransformPoint(Vector3.Lerp(laserTransform.position, target.transform.position, 0.3f)),
-                laserTransform.InverseTransformPoint(Vector3.Lerp(laserTransform.position, target.transform.position, 0.7f)),
+                laserTransform.InverseTransformPoint(Vector3.Lerp(laserTransform.position, closestPoint, 0.3f)),
+                laserTransform.InverseTransformPoint(Vector3.Lerp(laserTransform.position, closestPoint, 0.7f)),
                 laserTransform.InverseTransformPoint(target.transform.position) });
         }
     }
 
-    private void GetTargets(Laser laser)
+    private void GetAvailableTargets(Laser laser)
     {
         Transform laserTransform;
         List<Collider> targets;
@@ -134,13 +185,13 @@ public class Firing : MonoBehaviour
             case Laser.left:
                 {
                     laserTransform = laserLeft.transform;
-                    targets = targetsLeft;
+                    targets = targetsLeftAvailable;
                     break;
                 }
             default:
                 {
                     laserTransform = laserRight.transform;
-                    targets = targetsRight;
+                    targets = targetsRightAvailable;
                     break;
                 }
         }
@@ -167,22 +218,22 @@ public class Firing : MonoBehaviour
         {
             case Laser.left:
                 {
-                    if (targetsLeft.Count == 0)
+                    if (targetsLeftAvailable.Count == 0)
                     {
-                        targetLeft = null;
+                        targetLeft = (false, null, null);
                         return false;
                     }
-                    targets = targetsLeft;
+                    targets = targetsLeftAvailable;
                     break;
                 }
             default:
                 {
-                    if (targetsRight.Count == 0)
+                    if (targetsRightAvailable.Count == 0)
                     {
-                        targetRight = null;
+                        targetRight = (false, null, null);
                         return false;
                     }
-                    targets = targetsRight;
+                    targets = targetsRightAvailable;
                     break;
                 }
         }
@@ -194,115 +245,68 @@ public class Firing : MonoBehaviour
                 target = targets[i];
             }
         }
-        switch (laser)
-        {
-            case Laser.left:
-                {
-                    targetLeft = target;
-                    break;
-                }
-            default:
-                {
-                    targetRight = target;
-                    break;
-                }
-        }
+        SetTarget(target, laser);
         return true;
     }
 
-    private bool CheckIsTargetValid(Laser laser)
+    private bool IsTargetValid(Laser laser)
     {
         Transform laserTransform;
-        Collider target;
+        Collider targetCollider;
+        AsteroidController targetAstController;
         switch (laser)
         {
             case Laser.left:
                 {
                     laserTransform = laserLeft.transform;
-                    target = targetLeft;
+                    targetCollider = targetLeft.collider;
+                    targetAstController = targetLeft.astController;
                     break;
                 }
             default:
                 {
                     laserTransform = laserRight.transform;
-                    target = targetRight;
+                    targetCollider = targetRight.collider;
+                    targetAstController = targetRight.astController;
                     break;
                 }
         }
-        if (target == null)
+        if (targetCollider == null || targetAstController.IsDead())
         {
+            ReleaseTarget(laser);
             return false;
         }
-        Vector3 closestPoint = target.ClosestPoint(new Vector3(laserTransform.position.x,
-                laserTransform.position.y, target.transform.position.z));
+        Vector3 closestPoint = targetCollider.GetComponent<Collider>().ClosestPoint(new Vector3(laserTransform.position.x,
+                laserTransform.position.y, targetCollider.transform.position.z));
         Vector3 heading = (closestPoint - laserTransform.position).normalized;
         float angle = Vector3.Angle(laserTransform.forward, heading);
-        return angle <= laserAngleRande;
-    }
-
-    private void ClearTargets(Laser laser)
-    {
-        switch (laser)
+        if (angle > laserAngleRande)
         {
-            case Laser.left:
-                {
-                    targetLeft = null;
-                    targetsLeft.Clear();
-                    return;
-                }
-            default:
-                {
-                    targetRight = null;
-                    targetsRight.Clear();
-                    return;
-                }
+            ReleaseTarget(laser);
+            return false;
         }
-    }
-
-    void Update()
-    {
-        //Debug.DrawLine(laserLeft.transform.position, laserLeft.transform.position + laserLeft.transform.forward * 100);
-        //Debug.DrawLine(laserRight.transform.position, laserRight.transform.position + laserRight.transform.forward * 100);
-        //if (targetsLeft != null && targetsLeft.Count > 0)
-        //{
-        //    for (int i = 0; i < targetsLeft.Count; i++)
-        //    {
-        //        Debug.DrawLine(laserLeft.transform.position, targetsLeft[i].transform.position, Color.green);
-        //    }
-        //}
-        //if (targetsRight != null && targetsRight.Count > 0)
-        //{
-        //    for (int i = 0; i < targetsRight.Count; i++)
-        //    {
-        //        Debug.DrawLine(laserRight.transform.position, targetsRight[i].transform.position, Color.blue);
-        //    }
-        //}
-        //if (targetLeft != null)
-        //{
-        //    Debug.DrawLine(targetLeft.transform.position, targetLeft.transform.position + Vector3.up * 5, Color.green);
-        //}
-        //if (targetRight != null)
-        //{
-        //    Debug.DrawLine(targetRight.transform.position, targetRight.transform.position + Vector3.up * 5, Color.blue);
-        //}
+        else
+        {
+            return true;
+        }
     }
 
     private void FixedUpdate()
     {
         if (isLaserLeftActive)
         {
-            if (!CheckIsTargetValid(Laser.left))
+            if (!IsTargetValid(Laser.left))
             {
-                GetTargets(Laser.left);
+                GetAvailableTargets(Laser.left);
                 ChooseMainTarget(Laser.left);
             }
             LaserHit(Laser.left);
         }
         if (isLaserRightActive)
         {
-            if (!CheckIsTargetValid(Laser.right))
+            if (!IsTargetValid(Laser.right))
             {
-                GetTargets(Laser.right);
+                GetAvailableTargets(Laser.right);
                 ChooseMainTarget(Laser.right);
             }
             LaserHit(Laser.right);

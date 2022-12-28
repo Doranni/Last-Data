@@ -5,7 +5,7 @@ public class StopEffect : MonoBehaviour
 {
     private PooledObject pooledObj;
 
-    private void Start()
+    private void Awake()
     {
         pooledObj = GetComponent<PooledObject>();
     }

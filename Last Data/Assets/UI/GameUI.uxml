@@ -1,52 +1,97 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/Styles.uss?fileID=7433441132597879392&amp;guid=b002e3d31225fee45a7703d3fdf3f4a2&amp;type=3#Styles" />
-    <ui:VisualElement name="Debug" style="margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px; background-color: rgba(0, 0, 0, 0.8); flex-direction: row; flex-wrap: wrap; flex-shrink: initial; flex-grow: initial; width: 400px;">
-        <ui:VisualElement name="VE_ShipSpeed" class="Debug_Line" style="flex-direction: row;">
-            <ui:Label text="Ship Speed:" display-tooltip-when-elided="true" class="Debug_Label_Name" />
-            <ui:Label display-tooltip-when-elided="true" name="lbl_Speed_value" class="Debug_Label" />
+    <ui:VisualElement name="Debug" class="Debug" style="margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px; background-color: rgba(0, 0, 0, 0.8);">
+        <ui:VisualElement name="ShipHealth" class="Debug_Block">
+            <ui:VisualElement name="VE_ShipHealth" class="Debug_Line" style="flex-direction: row;">
+                <ui:Label text="Ship Health" display-tooltip-when-elided="true" class="Debug_Label_Name" />
+            </ui:VisualElement>
+            <ui:VisualElement name="VE_CockpitHealth" class="Debug_Line" style="flex-direction: row;">
+                <ui:Label text="Cockpit:" display-tooltip-when-elided="true" class="Debug_Label" />
+                <ui:Label display-tooltip-when-elided="true" name="lbl_CockpitHealth_value" class="Debug_Label" />
+            </ui:VisualElement>
+            <ui:VisualElement name="VE_CockpitExtensionHealth" class="Debug_Line" style="flex-direction: row;">
+                <ui:Label text="CockpitExtension:" display-tooltip-when-elided="true" class="Debug_Label" />
+                <ui:Label display-tooltip-when-elided="true" name="lbl_CockpitExtensionHealth_value" class="Debug_Label" />
+            </ui:VisualElement>
+            <ui:VisualElement name="VE_CoreChassyHealth" class="Debug_Line" style="flex-direction: row;">
+                <ui:Label text="CoreChassy:" display-tooltip-when-elided="true" class="Debug_Label" />
+                <ui:Label display-tooltip-when-elided="true" name="lbl_CoreChassyHealth_value" class="Debug_Label" />
+            </ui:VisualElement>
+            <ui:VisualElement name="VE_TwinChassy_RHealth" class="Debug_Line" style="flex-direction: row;">
+                <ui:Label text="TwinChassy Right:" display-tooltip-when-elided="true" class="Debug_Label" />
+                <ui:Label display-tooltip-when-elided="true" name="lbl_TwinChassy_RHealth_value" class="Debug_Label" />
+            </ui:VisualElement>
+            <ui:VisualElement name="VE_TwinChassy_LHealth" class="Debug_Line" style="flex-direction: row;">
+                <ui:Label text="TwinChassy Left:" display-tooltip-when-elided="true" class="Debug_Label" />
+                <ui:Label display-tooltip-when-elided="true" name="lbl_TwinChassy_LHealth_value" class="Debug_Label" />
+            </ui:VisualElement>
+            <ui:VisualElement name="VE_WingsHealth" class="Debug_Line" style="flex-direction: row;">
+                <ui:Label text="Wings:" display-tooltip-when-elided="true" class="Debug_Label" />
+                <ui:Label display-tooltip-when-elided="true" name="lbl_WingsHealth_value" class="Debug_Label" />
+            </ui:VisualElement>
+            <ui:VisualElement name="VE_BoosterPlugHealth" class="Debug_Line" style="flex-direction: row;">
+                <ui:Label text="BoosterPlug:" display-tooltip-when-elided="true" class="Debug_Label" />
+                <ui:Label display-tooltip-when-elided="true" name="lbl_BoosterPlugHealth_value" class="Debug_Label" />
+            </ui:VisualElement>
+            <ui:VisualElement name="VE_BoosterHealth" class="Debug_Line" style="flex-direction: row;">
+                <ui:Label text="Booster:" display-tooltip-when-elided="true" class="Debug_Label" />
+                <ui:Label display-tooltip-when-elided="true" name="lbl_BoosterHealth_value" class="Debug_Label" />
+            </ui:VisualElement>
+            <ui:VisualElement name="VE_Gun_LHealth" class="Debug_Line" style="flex-direction: row;">
+                <ui:Label text="Gun Left:" display-tooltip-when-elided="true" class="Debug_Label" />
+                <ui:Label display-tooltip-when-elided="true" name="lbl_Gun_LHealth_value" class="Debug_Label" />
+            </ui:VisualElement>
+            <ui:VisualElement name="VE_Gun_RHealth" class="Debug_Line" style="flex-direction: row;">
+                <ui:Label text="Gun Right:" display-tooltip-when-elided="true" class="Debug_Label" />
+                <ui:Label display-tooltip-when-elided="true" name="lbl_Gun_RHealth_value" class="Debug_Label" />
+            </ui:VisualElement>
+            <ui:VisualElement name="VE_ShipSpeed" class="Debug_Line" style="flex-direction: row;">
+                <ui:Label text="Ship Speed:" display-tooltip-when-elided="true" class="Debug_Label_Name" />
+                <ui:Label display-tooltip-when-elided="true" name="lbl_Speed_value" class="Debug_Label" />
+            </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="VE_ShipHealth" class="Debug_Line" style="flex-direction: row;">
-            <ui:Label text="Ship Health" display-tooltip-when-elided="true" class="Debug_Label_Name" />
-        </ui:VisualElement>
-        <ui:VisualElement name="VE_CockpitHealth" class="Debug_Line" style="flex-direction: row;">
-            <ui:Label text="Cockpit:" display-tooltip-when-elided="true" class="Debug_Label" />
-            <ui:Label display-tooltip-when-elided="true" name="lbl_CockpitHealth_value" class="Debug_Label" />
-        </ui:VisualElement>
-        <ui:VisualElement name="VE_CockpitExtensionHealth" class="Debug_Line" style="flex-direction: row;">
-            <ui:Label text="CockpitExtension:" display-tooltip-when-elided="true" class="Debug_Label" />
-            <ui:Label display-tooltip-when-elided="true" name="lbl_CockpitExtensionHealth_value" class="Debug_Label" />
-        </ui:VisualElement>
-        <ui:VisualElement name="VE_CoreChassyHealth" class="Debug_Line" style="flex-direction: row;">
-            <ui:Label text="CoreChassy:" display-tooltip-when-elided="true" class="Debug_Label" />
-            <ui:Label display-tooltip-when-elided="true" name="lbl_CoreChassyHealth_value" class="Debug_Label" />
-        </ui:VisualElement>
-        <ui:VisualElement name="VE_TwinChassy_RHealth" class="Debug_Line" style="flex-direction: row;">
-            <ui:Label text="TwinChassy Right:" display-tooltip-when-elided="true" class="Debug_Label" />
-            <ui:Label display-tooltip-when-elided="true" name="lbl_TwinChassy_RHealth_value" class="Debug_Label" />
-        </ui:VisualElement>
-        <ui:VisualElement name="VE_TwinChassy_LHealth" class="Debug_Line" style="flex-direction: row;">
-            <ui:Label text="TwinChassy Left:" display-tooltip-when-elided="true" class="Debug_Label" />
-            <ui:Label display-tooltip-when-elided="true" name="lbl_TwinChassy_LHealth_value" class="Debug_Label" />
-        </ui:VisualElement>
-        <ui:VisualElement name="VE_WingsHealth" class="Debug_Line" style="flex-direction: row;">
-            <ui:Label text="Wings:" display-tooltip-when-elided="true" class="Debug_Label" />
-            <ui:Label display-tooltip-when-elided="true" name="lbl_WingsHealth_value" class="Debug_Label" />
-        </ui:VisualElement>
-        <ui:VisualElement name="VE_BoosterPlugHealth" class="Debug_Line" style="flex-direction: row;">
-            <ui:Label text="BoosterPlug:" display-tooltip-when-elided="true" class="Debug_Label" />
-            <ui:Label display-tooltip-when-elided="true" name="lbl_BoosterPlugHealth_value" class="Debug_Label" />
-        </ui:VisualElement>
-        <ui:VisualElement name="VE_BoosterHealth" class="Debug_Line" style="flex-direction: row;">
-            <ui:Label text="Booster:" display-tooltip-when-elided="true" class="Debug_Label" />
-            <ui:Label display-tooltip-when-elided="true" name="lbl_BoosterHealth_value" class="Debug_Label" />
-        </ui:VisualElement>
-        <ui:VisualElement name="VE_Gun_LHealth" class="Debug_Line" style="flex-direction: row;">
-            <ui:Label text="Gun Left:" display-tooltip-when-elided="true" class="Debug_Label" />
-            <ui:Label display-tooltip-when-elided="true" name="lbl_Gun_LHealth_value" class="Debug_Label" />
-        </ui:VisualElement>
-        <ui:VisualElement name="VE_Gun_RHealth" class="Debug_Line" style="flex-direction: row;">
-            <ui:Label text="Gun Right:" display-tooltip-when-elided="true" class="Debug_Label" />
-            <ui:Label display-tooltip-when-elided="true" name="lbl_Gun_RHealth_value" class="Debug_Label" />
+        <ui:VisualElement name="Targets" class="Debug_Block">
+            <ui:VisualElement name="VE_Targets" class="Debug_Line" style="flex-direction: row;">
+                <ui:Label text="Targets" display-tooltip-when-elided="true" class="Debug_Label_Name" />
+            </ui:VisualElement>
+            <ui:VisualElement name="VE_TargetLeft" class="Debug_Line" style="flex-direction: row;">
+                <ui:Label text="Target Left" display-tooltip-when-elided="true" class="Debug_Label_Name" />
+            </ui:VisualElement>
+            <ui:VisualElement name="VE_TLeft_Health" class="Debug_Line" style="flex-direction: row;">
+                <ui:Label text="Health:" display-tooltip-when-elided="true" class="Debug_Label" />
+                <ui:Label display-tooltip-when-elided="true" name="lbl_TLeft_Health_value" class="Debug_Label" />
+            </ui:VisualElement>
+            <ui:VisualElement name="VE_TLeft_IsSet" class="Debug_Line" style="flex-direction: row;">
+                <ui:Label text="IsSet:" display-tooltip-when-elided="true" class="Debug_Label" />
+                <ui:Label display-tooltip-when-elided="true" name="lbl_TLeft_IsSet_value" class="Debug_Label" />
+            </ui:VisualElement>
+            <ui:VisualElement name="VE_TLeft_AstController" class="Debug_Line" style="flex-direction: row;">
+                <ui:Label text="Asteroid Controller:" display-tooltip-when-elided="true" class="Debug_Label" />
+                <ui:Label display-tooltip-when-elided="true" name="lbl_TLeft_AstController_value" class="Debug_Label" />
+            </ui:VisualElement>
+            <ui:VisualElement name="VE_TLeft_Collider" class="Debug_Line" style="flex-direction: row;">
+                <ui:Label text="Collider:" display-tooltip-when-elided="true" class="Debug_Label" />
+                <ui:Label display-tooltip-when-elided="true" name="lbl_TLeft_Collider_value" class="Debug_Label" />
+            </ui:VisualElement>
+            <ui:VisualElement name="VE_TargetRight" class="Debug_Line" style="flex-direction: row;">
+                <ui:Label text="Target Right" display-tooltip-when-elided="true" class="Debug_Label_Name" />
+            </ui:VisualElement>
+            <ui:VisualElement name="VE_TRight_Health" class="Debug_Line" style="flex-direction: row;">
+                <ui:Label text="Health:" display-tooltip-when-elided="true" class="Debug_Label" />
+                <ui:Label display-tooltip-when-elided="true" name="lbl_TRight_Health_value" class="Debug_Label" />
+            </ui:VisualElement>
+            <ui:VisualElement name="VE_TRight_IsSet" class="Debug_Line" style="flex-direction: row;">
+                <ui:Label text="IsSet:" display-tooltip-when-elided="true" class="Debug_Label" />
+                <ui:Label display-tooltip-when-elided="true" name="lbl_TRight_IsSet_value" class="Debug_Label" />
+            </ui:VisualElement>
+            <ui:VisualElement name="VE_TRight_AstController" class="Debug_Line" style="flex-direction: row;">
+                <ui:Label text="Asteroid Controller:" display-tooltip-when-elided="true" class="Debug_Label" />
+                <ui:Label display-tooltip-when-elided="true" name="lbl_TRight_AstController_value" class="Debug_Label" />
+            </ui:VisualElement>
+            <ui:VisualElement name="VE_TRight_Collider" class="Debug_Line" style="flex-direction: row;">
+                <ui:Label text="Collider:" display-tooltip-when-elided="true" class="Debug_Label" />
+                <ui:Label display-tooltip-when-elided="true" name="lbl_TRight_Collider_value" class="Debug_Label" />
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

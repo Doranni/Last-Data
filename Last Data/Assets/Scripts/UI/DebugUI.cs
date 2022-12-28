@@ -7,11 +7,16 @@ public class DebugUI : MonoBehaviour
     [SerializeField] private Health health_cockpit, health_cockpitExtension, health_coreChassy,
         health_twinChassy_R, health_twinChassy_L, health_wings, health_boosterPlug, health_booster, health_gun_L, health_gun_R;
 
+    [SerializeField] private Firing firing;
+
     private VisualElement debugScreen;
     private Label lbl_shipSpeed,
         lbl_health_cockpit, lbl_health_cockpitExtension, lbl_health_coreChassy, 
         lbl_health_twinChassy_R, lbl_health_twinChassy_L, lbl_health_wings, 
         lbl_health_boosterPlug, lbl_health_booster, lbl_health_gun_L, lbl_health_gun_R;
+
+    private Label lbl_tLeft_health, lbl_tLeft_isSet, lbl_tLeft_astController, lbl_tLeft_collider,
+        lbl_tRight_health, lbl_tRight_isSet, lbl_tRight_astController, lbl_tRight_collider;
 
     const string k_debugScreen = "DebugScreen";
     const string k_lbl_shipSpeed = "lbl_Speed_value";
@@ -25,6 +30,15 @@ public class DebugUI : MonoBehaviour
     const string k_lbl_health_booster = "lbl_BoosterHealth_value";
     const string k_lbl_health_gun_L = "lbl_Gun_LHealth_value";
     const string k_lbl_health_gun_R = "lbl_Gun_RHealth_value";
+
+    const string k_lbl_tLeft_health = "lbl_TLeft_Health_value";
+    const string k_lbl_tLeft_isSet = "lbl_TLeft_IsSet_value";
+    const string k_lbl_tLeft_astController = "lbl_TLeft_AstController_value";
+    const string k_lbl_tLeft_collider = "lbl_TLeft_Collider_value";
+    const string k_lbl_tRight_health = "lbl_TRight_Health_value";
+    const string k_lbl_tRight_isSet = "lbl_TRight_IsSet_value";
+    const string k_lbl_tRight_astController = "lbl_TRight_AstController_value";
+    const string k_lbl_tRight_collider = "lbl_TRight_Collider_value";
 
     private void Awake()
     {
@@ -41,6 +55,15 @@ public class DebugUI : MonoBehaviour
         lbl_health_booster = rootElement.Q<Label>(k_lbl_health_booster);
         lbl_health_gun_L = rootElement.Q<Label>(k_lbl_health_gun_L);
         lbl_health_gun_R = rootElement.Q<Label>(k_lbl_health_gun_R);
+
+        lbl_tLeft_health = rootElement.Q<Label>(k_lbl_tLeft_health);
+        lbl_tLeft_isSet = rootElement.Q<Label>(k_lbl_tLeft_isSet);
+        lbl_tLeft_astController = rootElement.Q<Label>(k_lbl_tLeft_astController);
+        lbl_tLeft_collider = rootElement.Q<Label>(k_lbl_tLeft_collider);
+        lbl_tRight_health = rootElement.Q<Label>(k_lbl_tRight_health);
+        lbl_tRight_isSet = rootElement.Q<Label>(k_lbl_tRight_isSet);
+        lbl_tRight_astController = rootElement.Q<Label>(k_lbl_tRight_astController);
+        lbl_tRight_collider = rootElement.Q<Label>(k_lbl_tRight_collider);
     }
 
     private void Start()
@@ -121,6 +144,49 @@ public class DebugUI : MonoBehaviour
     void Update()
     {
         lbl_shipSpeed.text = GameManager.Instance.Speed.ToString("0.00");
+
+        lbl_tLeft_isSet.text = firing.TargetLeft.isSet.ToString();
+        if(firing.TargetLeft.astController != null)
+        {
+            lbl_tLeft_astController.text = firing.TargetLeft.astController.ToString();
+            lbl_tLeft_health.text = firing.TargetLeft.astController.GetHealth().currentHealth.ToString("0.00") +
+            "/" + firing.TargetLeft.astController.GetHealth().maxHealth.ToString("0.00");
+        }
+        else
+        {
+            lbl_tLeft_astController.text = "null";
+            lbl_tLeft_health.text = "0/0";
+        }
+        if (firing.TargetLeft.collider != null)
+        {
+            lbl_tLeft_collider.text = firing.TargetLeft.collider.ToString();
+        }
+        else
+        {
+            lbl_tLeft_collider.text = "null";
+        }
+
+        lbl_tRight_isSet.text = firing.TargetRight.isSet.ToString();
+        if (firing.TargetRight.astController != null)
+        {
+            lbl_tRight_astController.text = firing.TargetRight.astController.ToString();
+            lbl_tRight_health.text = firing.TargetRight.astController.GetHealth().currentHealth.ToString("0.00") +
+            "/" + firing.TargetRight.astController.GetHealth().maxHealth.ToString("0.00");
+        }
+        else
+        {
+            lbl_tRight_astController.text = "null";
+            lbl_tRight_health.text = "0/0";
+        }  
+        if (firing.TargetRight.collider != null)
+        {
+            lbl_tRight_collider.text = firing.TargetRight.collider.ToString();
+        }
+        else
+        {
+            lbl_tRight_collider.text = "null";
+        }
+
     }
 
     private void OnDestroy()

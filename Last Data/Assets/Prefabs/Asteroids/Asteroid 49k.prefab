@@ -167,13 +167,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1756e9317f83b04dbdd2cf8b9fa31e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distanceUnreachable: 100
   distanceFar: 30
   distanceMid: 8
   distanceClose: -8
   colorFar: {r: 0.11779833, g: 1, b: 0, a: 1}
   colorMid: {r: 1, g: 0.6821606, b: 0, a: 1}
   colorClose: {r: 1, g: 0, b: 0, a: 1}
-  colorBehind: {r: 0, g: 0, b: 0, a: 0}
+  colorInteracted: {r: 0.89548916, g: 0.015686274, b: 1, a: 1}
   currentDistance: 0
 --- !u!114 &6907371950361991144
 MonoBehaviour:

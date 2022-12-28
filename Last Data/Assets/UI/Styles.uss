@@ -1,3 +1,17 @@
+.Debug {
+    flex-direction: row;
+    flex-shrink: initial;
+    position: absolute;
+}
+
+.Debug_Block {
+    flex-direction: column;
+    width: auto;
+}
+
+.Debug_Line {
+}
+
 .Debug_Label {
     margin-left: 5px;
     margin-right: 5px;
@@ -15,8 +29,5 @@
     margin-bottom: 5px;
     width: 200px;
     font-size: 22px;
-    color: rgb(210, 210, 210);
-}
-
-.Debug_Line {
+    color: rgb(224, 128, 128);
 }

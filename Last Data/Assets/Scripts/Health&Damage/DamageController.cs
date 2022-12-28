@@ -5,7 +5,7 @@ public class DamageController : MonoBehaviour
 {
     private Damage damage;
 
-    private void Start()
+    private void Awake()
     {
         damage = GetComponent<Damage>();
     }

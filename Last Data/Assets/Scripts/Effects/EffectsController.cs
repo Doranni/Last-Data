@@ -5,18 +5,11 @@ public class EffectsController : MonoBehaviour
 {
     [SerializeField] private ObjectPool asteroidExplosionPool, shipDamagePool;
 
-    private AudioSource audioSource;
-
     private static EffectsController instance;
 
     private void Awake()
     {
         instance = this;
-    }
-
-    private void Start()
-    {
-        audioSource = GetComponent<AudioSource>();
     }
 
     public static void PlayAsteroidExplosionEffect(Vector3 position)
