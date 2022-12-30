@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
+[RequireComponent(typeof(AudioSource))]
 public class Firing : MonoBehaviour
 {
     [SerializeField] private float laserPower, laserLengthRange, laserAngleRande;
@@ -16,6 +18,11 @@ public class Firing : MonoBehaviour
     public (bool isSet, AsteroidController astController, Collider collider) TargetLeft => targetLeft;
     public (bool isSet, AsteroidController astController, Collider collider) TargetRight => targetRight;
 
+    [SerializeField] private AudioClip audioClip_laserBeamStart, audioClip_laserBeamMiddle, audioClip_laserBeamEnd;
+
+    private AudioSource audioSource;
+    private Coroutine audioCoroutineLeftLaser, audioCoroutineRightLaser;
+
     private enum Laser
     {
         left,
@@ -27,6 +34,7 @@ public class Firing : MonoBehaviour
     {
         laserLeft_lineRenderer = laserLeft.GetComponentInChildren<LineRenderer>();
         laserRight_lineRenderer = laserRight.GetComponentInChildren<LineRenderer>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Start()
@@ -38,12 +46,33 @@ public class Firing : MonoBehaviour
 
         laserLeft.SetActive(false);
         laserRight.SetActive(false);
-}
+
+        audioSource.clip = audioClip_laserBeamMiddle;
+        audioSource.loop = true;
+    }
+
+    private IEnumerator PlayAudioStart()
+    {
+        audioSource.PlayOneShot(audioClip_laserBeamStart);
+        yield return new WaitForSeconds(audioClip_laserBeamStart.length);
+        audioSource.Play();
+    }
+
+    private void PlayAudioEnd()
+    {
+        if (!isLaserLeftActive && !isLaserRightActive)
+        {
+            audioSource.Stop();
+        }
+        audioSource.PlayOneShot(audioClip_laserBeamEnd);
+    }
+
 
     private void FireRight_Started()
     {
         laserRight.SetActive(true);
         isLaserRightActive = true;
+        audioCoroutineRightLaser = StartCoroutine(PlayAudioStart());
     }
 
     private void FireRight_Canceled()
@@ -53,12 +82,15 @@ public class Firing : MonoBehaviour
         ReleaseTarget(Laser.right);
         targetsRightAvailable.Clear();
         SetLaserPoints(Laser.right, true);
+        PlayAudioEnd();
+        StopCoroutine(audioCoroutineRightLaser);
     }
 
     private void FireLeft_Started()
     {
         laserLeft.SetActive(true);
         isLaserLeftActive = true;
+        audioCoroutineLeftLaser = StartCoroutine(PlayAudioStart());
     }
 
     private void FireLeft_Canceled()
@@ -68,6 +100,8 @@ public class Firing : MonoBehaviour
         ReleaseTarget(Laser.left);
         targetsLeftAvailable.Clear();
         SetLaserPoints(Laser.left, true);
+        PlayAudioEnd();
+        StopCoroutine(audioCoroutineLeftLaser);
     }
 
     private void SetTarget(Collider target, Laser laser)
