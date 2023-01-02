@@ -464,6 +464,7 @@ GameObject:
   - component: {fileID: 9033802341125326784}
   - component: {fileID: 4074535782886311}
   - component: {fileID: 7839527828788885391}
+  - component: {fileID: 4074535782886316}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Ship
@@ -683,6 +684,29 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4074535782886316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9208018150034900965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d7ea8dc0a71245479476aa0bdd86a9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shipParts:
+  - {fileID: 1565014219937158505}
+  - {fileID: 4689965939300287448}
+  - {fileID: 5122791508959850739}
+  - {fileID: 2616255045129632584}
+  - {fileID: 7445924642859302642}
+  - {fileID: 7176653992295510984}
+  - {fileID: 25370387198840812}
+  - {fileID: 3689744853622610232}
+  - {fileID: 7033196521807163209}
+  - {fileID: 769112943682335185}
 --- !u!1 &9208144870250333329
 GameObject:
   m_ObjectHideFlags: 0

@@ -78,8 +78,12 @@ public class InputManager : Singleton<InputManager>
     private void OnDestroy()
     {
         gameInput.Ship.Move.performed -= Move_performed;
+
         gameInput.Ship.FireLeft.started -= FireLeft_started;
         gameInput.Ship.FireLeft.canceled -= FireLeft_canceled;
+        gameInput.Ship.FireRight.started -= FireRight_started;
+        gameInput.Ship.FireRight.canceled -= FireRight_canceled;
+
         gameInput.Ship.Acceleration.started -= Acceleration_started;
         gameInput.Ship.Acceleration.canceled -= Acceleration_canceled;
     }

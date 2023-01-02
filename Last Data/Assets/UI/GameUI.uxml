@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/Styles.uss?fileID=7433441132597879392&amp;guid=b002e3d31225fee45a7703d3fdf3f4a2&amp;type=3#Styles" />
-    <ui:VisualElement name="Debug" class="Debug" style="margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px; background-color: rgba(0, 0, 0, 0.8);">
+    <ui:VisualElement name="Debug" class="Debug" style="margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px; background-color: rgba(0, 0, 0, 0.8); display: none; visibility: hidden; overflow: hidden;">
         <ui:VisualElement name="ShipHealth" class="Debug_Block">
             <ui:VisualElement name="VE_ShipHealth" class="Debug_Line" style="flex-direction: row;">
                 <ui:Label text="Ship Health" display-tooltip-when-elided="true" class="Debug_Label_Name" />
@@ -92,6 +92,38 @@
                 <ui:Label text="Collider:" display-tooltip-when-elided="true" class="Debug_Label" />
                 <ui:Label display-tooltip-when-elided="true" name="lbl_TRight_Collider_value" class="Debug_Label" />
             </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="Speed" style="position: absolute; display: flex; left: 50%; right: 50%; align-items: center;">
+        <ui:VisualElement class="MainScreen_LabelCenter" style="width: 350px; height: 50px; background-image: url(&apos;project://database/Assets/UI/UI%20images/label%20speed3.png?fileID=2800000&amp;guid=0fd5e6c6d51a6884897efcabdb6af9b0&amp;type=3#label speed3&apos;); padding-left: 80px;">
+            <ui:VisualElement class="Stats_Icon" style="display: flex; background-image: url(&apos;project://database/Assets/UI/UI%20images/shuttle.png?fileID=2800000&amp;guid=8a1d29c506f128d49b575d0b7a89a1d4&amp;type=3#shuttle&apos;); width: 30px; height: 30px;" />
+            <ui:Label display-tooltip-when-elided="true" enable-rich-text="true" text="163 km/s" name="lbl_ShipSpeed_value" class="Stats_Label" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="ShipStats" style="align-items: flex-start;">
+        <ui:VisualElement name="Health" class="MainScreen_LabelLeft" style="width: 440px; height: 50px; background-image: url(&apos;project://database/Assets/UI/UI%20images/label%20left.png?fileID=2800000&amp;guid=61503f0976e38e648b3b4610007ae1ca&amp;type=3#label left&apos;);">
+            <ui:VisualElement class="Stats_Icon" style="display: flex; background-image: url(&apos;project://database/Assets/_Heathen%20Engineering/Assets/UX/Icons/Flat%20Icons%20[Free]/Free%20Flat%20Gear%201%20Icon.png?fileID=2800000&amp;guid=561ce56b57e34e6499fda3c9e96b3559&amp;type=3#Free Flat Gear 1 Icon&apos;); width: 30px; height: 30px;" />
+            <ui:Label text="100/100" display-tooltip-when-elided="true" name="lbl_ShipHealth_value" class="Stats_Label" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Fuel" class="MainScreen_LabelLeft" style="width: 340px; height: 50px; background-image: url(&apos;project://database/Assets/UI/UI%20images/label%20left.png?fileID=2800000&amp;guid=61503f0976e38e648b3b4610007ae1ca&amp;type=3#label left&apos;);">
+            <ui:VisualElement class="Stats_Icon" style="display: flex; width: 30px; height: 30px; background-image: url(&apos;project://database/Assets/UI/UI%20images/fuel.png?fileID=2800000&amp;guid=24accdbea5c6de542b2063daaf8aa97b&amp;type=3#fuel&apos;);" />
+            <ui:Label display-tooltip-when-elided="true" name="lbl_ShipFuel_value" text="100/100" class="Stats_Label" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Charge" class="MainScreen_LabelLeft" style="width: 260px; height: 50px; background-image: url(&apos;project://database/Assets/UI/UI%20images/label%20left.png?fileID=2800000&amp;guid=61503f0976e38e648b3b4610007ae1ca&amp;type=3#label left&apos;);">
+            <ui:VisualElement class="Stats_Icon" style="display: flex; width: 30px; height: 30px; background-image: url(&apos;project://database/Assets/_Heathen%20Engineering/Assets/UX/Icons/Flat%20Icons%20[Free]/Free%20Flat%20Battery%20Smooth%202%20Icon.png?fileID=2800000&amp;guid=82031b80b43cc524fae78ff6c698aee9&amp;type=3#Free Flat Battery Smooth 2 Icon&apos;);" />
+            <ui:Label display-tooltip-when-elided="true" name="lbl_laserCharge_value" text="100/100" class="Stats_Label" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="Resouces" style="align-items: flex-end; right: 0; position: absolute; display: none;">
+        <ui:VisualElement class="MainScreen_LabelRight" style="width: 440px; height: 50px; background-image: url(&apos;project://database/Assets/UI/UI%20images/label%20right.png?fileID=2800000&amp;guid=8c6c2ab6b2dfc6d4f8b0309bf616cab7&amp;type=3#label right&apos;);">
+            <ui:VisualElement class="Stats_Icon" style="display: flex; background-image: url(&apos;project://database/Assets/UI/UI%20images/shuttle.png?fileID=2800000&amp;guid=8a1d29c506f128d49b575d0b7a89a1d4&amp;type=3#shuttle&apos;); width: 30px; height: 30px; margin-right: 0; margin-left: 0;" />
+            <ui:Label text="100/100" display-tooltip-when-elided="true" class="Stats_Label" />
+        </ui:VisualElement>
+        <ui:VisualElement class="MainScreen_LabelRight" style="width: 340px; height: 50px; background-image: url(&apos;project://database/Assets/UI/UI%20images/label%20right.png?fileID=2800000&amp;guid=8c6c2ab6b2dfc6d4f8b0309bf616cab7&amp;type=3#label right&apos;);">
+            <ui:Label text="Label" display-tooltip-when-elided="true" class="Stats_Label" />
+        </ui:VisualElement>
+        <ui:VisualElement class="MainScreen_LabelRight" style="width: 260px; height: 50px; background-image: url(&apos;project://database/Assets/UI/UI%20images/label%20right.png?fileID=2800000&amp;guid=8c6c2ab6b2dfc6d4f8b0309bf616cab7&amp;type=3#label right&apos;);">
+            <ui:Label text="Label" display-tooltip-when-elided="true" class="Stats_Label" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
