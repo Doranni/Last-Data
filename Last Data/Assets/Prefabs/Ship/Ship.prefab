@@ -465,6 +465,8 @@ GameObject:
   - component: {fileID: 4074535782886311}
   - component: {fileID: 7839527828788885391}
   - component: {fileID: 4074535782886316}
+  - component: {fileID: 2588407275267946099}
+  - component: {fileID: 4074535782886317}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Ship
@@ -540,9 +542,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a39437de7a355b45afe108f014f43c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laserPower: 70
+  laserPower: 100
   laserLengthRange: 100
   laserAngleRande: 10
+  laserChargeConsumption: 0.5
   laserLeft: {fileID: 5713417576867569389}
   laserRight: {fileID: 6691828100792382784}
   lMask_Asteroids:
@@ -707,6 +710,32 @@ MonoBehaviour:
   - {fileID: 3689744853622610232}
   - {fileID: 7033196521807163209}
   - {fileID: 769112943682335185}
+--- !u!114 &2588407275267946099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9208018150034900965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d98826f977dd62d4fb6bb63b88118df9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chargeCapasity: 80
+--- !u!114 &4074535782886317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9208018150034900965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61400654ddb1d7841b9641fe4ed95703, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fuelCapasity: 120
 --- !u!1 &9208144870250333329
 GameObject:
   m_ObjectHideFlags: 0

@@ -49,4 +49,12 @@ public class Health : MonoBehaviour
         IsDead = false;
         currentHealth = maxHealth;
     }
+
+    public void SetMaxHealth(float value) => SetMaxHealth(value, value);
+
+    public void SetMaxHealth(float value, float currentValue)
+    {
+        maxHealth = value;
+        currentHealth = value;
+    }
 }

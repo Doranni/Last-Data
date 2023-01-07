@@ -22,6 +22,7 @@ public class ObjectPool : MonoBehaviour
             instance = Instantiate(objectToPool[Random.Range(0, objectToPool.Length)], gameObject.transform);
             instance.Pool = this;
             instance.gameObject.SetActive(false);
+            instance.Initialize();
             list.Add(instance);
         }
     }

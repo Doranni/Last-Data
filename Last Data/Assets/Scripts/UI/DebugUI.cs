@@ -15,8 +15,8 @@ public class DebugUI : MonoBehaviour
         lbl_health_twinChassy_R, lbl_health_twinChassy_L, lbl_health_wings, 
         lbl_health_boosterPlug, lbl_health_booster, lbl_health_gun_L, lbl_health_gun_R;
 
-    private Label lbl_tLeft_health, lbl_tLeft_isSet, lbl_tLeft_astController, lbl_tLeft_collider,
-        lbl_tRight_health, lbl_tRight_isSet, lbl_tRight_astController, lbl_tRight_collider;
+    private Label lbl_tLeft_position, lbl_tLeft_health, lbl_tLeft_isSet, lbl_tLeft_astController, lbl_tLeft_collider,
+        lbl_tRight_position, lbl_tRight_health, lbl_tRight_isSet, lbl_tRight_astController, lbl_tRight_collider;
 
     const string k_debugScreen = "DebugScreen";
     const string k_lbl_shipSpeed = "lbl_Speed_value";
@@ -31,10 +31,12 @@ public class DebugUI : MonoBehaviour
     const string k_lbl_health_gun_L = "lbl_Gun_LHealth_value";
     const string k_lbl_health_gun_R = "lbl_Gun_RHealth_value";
 
+    const string k_lbl_tLeft_position = "lbl_TLeft_Position_value";
     const string k_lbl_tLeft_health = "lbl_TLeft_Health_value";
     const string k_lbl_tLeft_isSet = "lbl_TLeft_IsSet_value";
     const string k_lbl_tLeft_astController = "lbl_TLeft_AstController_value";
     const string k_lbl_tLeft_collider = "lbl_TLeft_Collider_value";
+    const string k_lbl_tRight_position = "lbl_TRight_Position_value";
     const string k_lbl_tRight_health = "lbl_TRight_Health_value";
     const string k_lbl_tRight_isSet = "lbl_TRight_IsSet_value";
     const string k_lbl_tRight_astController = "lbl_TRight_AstController_value";
@@ -56,10 +58,12 @@ public class DebugUI : MonoBehaviour
         lbl_health_gun_L = rootElement.Q<Label>(k_lbl_health_gun_L);
         lbl_health_gun_R = rootElement.Q<Label>(k_lbl_health_gun_R);
 
+        lbl_tLeft_position = rootElement.Q<Label>(k_lbl_tLeft_position);
         lbl_tLeft_health = rootElement.Q<Label>(k_lbl_tLeft_health);
         lbl_tLeft_isSet = rootElement.Q<Label>(k_lbl_tLeft_isSet);
         lbl_tLeft_astController = rootElement.Q<Label>(k_lbl_tLeft_astController);
         lbl_tLeft_collider = rootElement.Q<Label>(k_lbl_tLeft_collider);
+        lbl_tRight_position = rootElement.Q<Label>(k_lbl_tRight_position);
         lbl_tRight_health = rootElement.Q<Label>(k_lbl_tRight_health);
         lbl_tRight_isSet = rootElement.Q<Label>(k_lbl_tRight_isSet);
         lbl_tRight_astController = rootElement.Q<Label>(k_lbl_tRight_astController);
@@ -160,10 +164,12 @@ public class DebugUI : MonoBehaviour
         if (firing.TargetLeft.collider != null)
         {
             lbl_tLeft_collider.text = firing.TargetLeft.collider.ToString();
+            lbl_tLeft_position.text = firing.TargetLeft.collider.transform.position.ToString();
         }
         else
         {
             lbl_tLeft_collider.text = "null";
+            lbl_tLeft_position.text = "null";
         }
 
         lbl_tRight_isSet.text = firing.TargetRight.isSet.ToString();
@@ -181,10 +187,12 @@ public class DebugUI : MonoBehaviour
         if (firing.TargetRight.collider != null)
         {
             lbl_tRight_collider.text = firing.TargetRight.collider.ToString();
+            lbl_tRight_position.text = firing.TargetRight.collider.transform.position.ToString();
         }
         else
         {
             lbl_tRight_collider.text = "null";
+            lbl_tRight_position.text = "null";
         }
 
     }

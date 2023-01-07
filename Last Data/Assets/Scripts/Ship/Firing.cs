@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Collections;
 
 [RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(LaserCharge))]
 public class Firing : MonoBehaviour
 {
-    [SerializeField] private float laserPower, laserLengthRange, laserAngleRande;
+    [SerializeField] private float laserPower, laserLengthRange, laserAngleRande, laserChargeConsumption;
     [SerializeField] private GameObject laserLeft, laserRight;
     [SerializeField] private LayerMask lMask_Asteroids;
 
+    private LaserCharge laserCharge;
     private LineRenderer laserLeft_lineRenderer, laserRight_lineRenderer;
     private List<Collider> targetsLeftAvailable = new(), targetsRightAvailable = new();
     private (bool isSet, AsteroidController astController, Collider collider) targetLeft = (false, null, null), 
@@ -32,6 +34,7 @@ public class Firing : MonoBehaviour
 
     private void Awake()
     {
+        laserCharge = GetComponent<LaserCharge>();
         laserLeft_lineRenderer = laserLeft.GetComponentInChildren<LineRenderer>();
         laserRight_lineRenderer = laserRight.GetComponentInChildren<LineRenderer>();
         audioSource = GetComponent<AudioSource>();
@@ -70,38 +73,50 @@ public class Firing : MonoBehaviour
 
     private void FireRight_Started()
     {
-        laserRight.SetActive(true);
-        isLaserRightActive = true;
-        audioCoroutineRightLaser = StartCoroutine(PlayAudioStart());
+        if (laserCharge.CurrentCharge > 0)
+        {
+            laserRight.SetActive(true);
+            isLaserRightActive = true;
+            audioCoroutineRightLaser = StartCoroutine(PlayAudioStart());
+        }
     }
 
     private void FireRight_Canceled()
     {
-        isLaserRightActive = false;
-        laserRight.SetActive(false);
-        ReleaseTarget(Laser.right);
-        targetsRightAvailable.Clear();
-        SetLaserPoints(Laser.right, true);
-        PlayAudioEnd();
-        StopCoroutine(audioCoroutineRightLaser);
+        if (isLaserRightActive)
+        {
+            isLaserRightActive = false;
+            laserRight.SetActive(false);
+            ReleaseTarget(Laser.right);
+            targetsRightAvailable.Clear();
+            SetLaserPoints(Laser.right, true);
+            PlayAudioEnd();
+            StopCoroutine(audioCoroutineRightLaser);
+        }    
     }
 
     private void FireLeft_Started()
     {
-        laserLeft.SetActive(true);
-        isLaserLeftActive = true;
-        audioCoroutineLeftLaser = StartCoroutine(PlayAudioStart());
+        if (laserCharge.CurrentCharge > 0)
+        {
+            laserLeft.SetActive(true);
+            isLaserLeftActive = true;
+            audioCoroutineLeftLaser = StartCoroutine(PlayAudioStart());
+        }
     }
 
     private void FireLeft_Canceled()
     {
-        isLaserLeftActive = false;
-        laserLeft.SetActive(false);
-        ReleaseTarget(Laser.left);
-        targetsLeftAvailable.Clear();
-        SetLaserPoints(Laser.left, true);
-        PlayAudioEnd();
-        StopCoroutine(audioCoroutineLeftLaser);
+        if (isLaserLeftActive)
+        {
+            isLaserLeftActive = false;
+            laserLeft.SetActive(false);
+            ReleaseTarget(Laser.left);
+            targetsLeftAvailable.Clear();
+            SetLaserPoints(Laser.left, true);
+            PlayAudioEnd();
+            StopCoroutine(audioCoroutineLeftLaser);
+        }
     }
 
     private void SetTarget(Collider target, Laser laser)
@@ -170,6 +185,7 @@ public class Firing : MonoBehaviour
                     break;
                 }
         }
+        laserCharge.ChangeCharge(-laserChargeConsumption * Time.deltaTime);
     }
 
     private void SetLaserPoints(Laser laser, bool toReset = false)
@@ -206,7 +222,7 @@ public class Firing : MonoBehaviour
             lineRenderer.SetPositions(new Vector3[] { Vector3.zero,
                 laserTransform.InverseTransformPoint(Vector3.Lerp(laserTransform.position, closestPoint, 0.3f)),
                 laserTransform.InverseTransformPoint(Vector3.Lerp(laserTransform.position, closestPoint, 0.7f)),
-                laserTransform.InverseTransformPoint(target.transform.position) });
+                laserTransform.InverseTransformPoint(closestPoint) });
         }
     }
 
@@ -230,17 +246,24 @@ public class Firing : MonoBehaviour
                 }
         }
         targets.Clear();
-        Collider[] overlap = Physics.OverlapSphere(laserTransform.position, laserLengthRange, lMask_Asteroids);  
+        Collider[] overlap = Physics.OverlapSphere(laserTransform.position, laserLengthRange, lMask_Asteroids);
+        string res = "";
         for (int i = 0; i < overlap.Length; i++)
         {
             Vector3 closestPoint = overlap[i].ClosestPoint(new Vector3(laserTransform.position.x,
                 laserTransform.position.y, overlap[i].transform.position.z));
             Vector3 heading = (closestPoint - laserTransform.position).normalized;
             float angle = Vector3.Angle(laserTransform.forward, heading);
-            if (angle <= laserAngleRande)
+            float distance = Vector3.Distance(closestPoint, laserTransform.position); 
+            if (angle <= laserAngleRande && distance < laserLengthRange)
             {
                 targets.Add(overlap[i]);
+                res += overlap[i].transform.position;
             }
+        }
+        if (targets.Count > 0)
+        {
+            Debug.Log($"laser pos - {laserTransform.position}, overlaps - {res}");
         }
     }
 
@@ -329,21 +352,35 @@ public class Firing : MonoBehaviour
     {
         if (isLaserLeftActive)
         {
-            if (!IsTargetValid(Laser.left))
+            if (laserCharge.CurrentCharge > 0)
             {
-                GetAvailableTargets(Laser.left);
-                ChooseMainTarget(Laser.left);
+                if (!IsTargetValid(Laser.left))
+                {
+                    GetAvailableTargets(Laser.left);
+                    ChooseMainTarget(Laser.left);
+                }
+                LaserHit(Laser.left);
             }
-            LaserHit(Laser.left);
+            else
+            {
+                FireLeft_Canceled();
+            }
         }
         if (isLaserRightActive)
         {
-            if (!IsTargetValid(Laser.right))
+            if (laserCharge.CurrentCharge > 0)
             {
-                GetAvailableTargets(Laser.right);
-                ChooseMainTarget(Laser.right);
+                if (!IsTargetValid(Laser.right))
+                {
+                    GetAvailableTargets(Laser.right);
+                    ChooseMainTarget(Laser.right);
+                }
+                LaserHit(Laser.right);
             }
-            LaserHit(Laser.right);
+            else
+            {
+                FireRight_Canceled();
+            }
         }
     }
 

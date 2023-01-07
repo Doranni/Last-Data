@@ -5,21 +5,23 @@ using UnityEngine;
 [RequireComponent(typeof(ShowDistance))]
 public class AsteroidController : MonoBehaviour
 {
-    private Health health;
+    
+
+    private Health astHealth;
     private PooledObject pooledObj;
     private ShowDistance showDistance;
 
     private void Awake()
     {
-        health = GetComponent<Health>();
+        astHealth = GetComponent<Health>();
         pooledObj = GetComponent<PooledObject>();
         showDistance = GetComponent<ShowDistance>();
     }
 
     private void Start()
     {
-        health.OnGetDamage += GetDamage;
-        health.OnDeath += Death;
+        astHealth.OnGetDamage += GetDamage;
+        astHealth.OnDeath += Death;
     }
 
     private void GetDamage((float currentHealth, float maxHealth) obj)
@@ -30,7 +32,7 @@ public class AsteroidController : MonoBehaviour
     private void Death()
     {
         EffectsController.PlayAsteroidExplosionEffect(transform.position);
-        Debug.Log($"Ast: {name} Death, position - {transform.position}, health - {health.CurrentHealth}.");
+        Debug.Log($"Ast: {name} Death, position - {transform.position}, health - {astHealth.CurrentHealth}.");
         pooledObj.Release();
         showDistance.ClearOutlining();
     }
@@ -47,21 +49,21 @@ public class AsteroidController : MonoBehaviour
 
     public void ChangeHealth(float value)
     {
-        health.ChangeHealth(value);
+        astHealth.ChangeHealth(value);
     }
 
     public (float currentHealth, float maxHealth) GetHealth()
     {
-        return (health.CurrentHealth, health.MaxHealth);
+        return (astHealth.CurrentHealth, astHealth.MaxHealth);
     }
 
     public bool IsDead()
     {
-        return health.IsDead;
+        return astHealth.IsDead;
     }
 
     public void Respawn()
     {
-        health.Respawn();
+        astHealth.Respawn();
     }
 }

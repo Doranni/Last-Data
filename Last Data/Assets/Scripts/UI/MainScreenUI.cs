@@ -5,6 +5,8 @@ using UnityEngine.UIElements;
 public class MainScreenUI : MonoBehaviour
 {
     [SerializeField] ShipHealth shipHealth;
+    [SerializeField] Fuel shipFuel;
+    [SerializeField] LaserCharge laserCharge;
 
     private VisualElement speedScreen;
     private VisualElement shipStatsScreen;
@@ -47,6 +49,12 @@ public class MainScreenUI : MonoBehaviour
         DisplayShipHealth(shipHealth.GetTotalHealth());
     }
 
+    private void Update()
+    {
+        DisplayFuel();
+        DisplayLaserCharge();
+    }
+
     private void DisplayShipHealth((float currentValue, float maxValue) value)
     {
         lbl_shipHealth.text = value.currentValue.ToString("0") + "/" + value.maxValue.ToString("0");
@@ -57,8 +65,19 @@ public class MainScreenUI : MonoBehaviour
         lbl_shipSpeed.text = GameManager.Instance.SpeedGoal.ToString("0") + " km/s";
     }
 
+    private void DisplayFuel()
+    {
+        lbl_shipFuel.text = shipFuel.CurrentFuelAmount.ToString("0") + "/" + shipFuel.FuelCapasity.ToString("0");
+    }
+
+    private void DisplayLaserCharge()
+    {
+        lbl_laserCharge.text = laserCharge.CurrentCharge.ToString("0") + "/" + laserCharge.ChargeCapasity.ToString("0");
+    }
+
     private void OnDestroy()
     {
         GameManager.Instance.OnSpeedChanged -= DisplaySpeed;
+        shipHealth.OnChangeHealth -= DisplayShipHealth;
     }
 }
