@@ -1,3 +1,17 @@
+.Debug {
+    flex-direction: row;
+    flex-shrink: initial;
+    position: absolute;
+}
+
+.Debug_Block {
+    flex-direction: column;
+    width: auto;
+}
+
+.Debug_Line {
+}
+
 .Debug_Label {
     margin-left: 5px;
     margin-right: 5px;
@@ -5,8 +19,66 @@
     margin-bottom: 5px;
     width: 200px;
     font-size: 18px;
-    color: rgba(210, 210, 210, 255);
+    color: rgb(188, 188, 188);
 }
 
-.Debug_Line {
+.Debug_Label_Name {
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 200px;
+    font-size: 22px;
+    color: rgb(224, 128, 128);
+}
+
+.MainScreen_LabelCenter {
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding-right: 80px;
+    padding-left: 80px;
+}
+
+.MainScreen_LabelLeft {
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding-right: 80px;
+    display: flex;
+    padding-left: 30px;
+}
+
+.MainScreen_LabelRight {
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding-right: 20px;
+    padding-left: 80px;
+}
+
+.Stats_Label {
+    color: rgb(192, 192, 192);
+    font-size: 22px;
+    -unity-text-align: middle-center;
+    justify-content: center;
+    align-items: center;
+}
+
+.Stats_Icon {
+    width: 50px;
+    height: 50px;
+    -unity-background-image-tint-color: rgb(192, 192, 192);
 }
