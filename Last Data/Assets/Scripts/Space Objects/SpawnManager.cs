@@ -44,7 +44,7 @@ public class SpawnManager : MonoBehaviour
             {
                 return new Vector3(Random.Range(GameManager.Instance.ObjDetectRange_min.x, 
                     GameManager.Instance.ObjDetectRange_max.x),
-                    Random.Range(GameManager.Instance.ObjDetectRange_min.y, GameManager.Instance.ObjDetectRange_min.y),
+                    Random.Range(GameManager.Instance.ObjDetectRange_min.y, GameManager.Instance.ObjDetectRange_max.y),
                     Random.Range(GameManager.Instance.AstSpawnRange_min.z, GameManager.Instance.AstSpawnRange_max.z));
             }
             else
@@ -60,8 +60,8 @@ public class SpawnManager : MonoBehaviour
             if (inDetectRange)
             {
                 return new Vector3(Random.Range(GameManager.Instance.ObjDetectRange_min.x, 
-                    GameManager.Instance.ObjDetectRange_min.x),
-                    Random.Range(GameManager.Instance.ObjDetectRange_min.y, GameManager.Instance.ObjDetectRange_min.y),
+                    GameManager.Instance.ObjDetectRange_max.x),
+                    Random.Range(GameManager.Instance.ObjDetectRange_min.y, GameManager.Instance.ObjDetectRange_max.y),
                     GameManager.Instance.AstSpawnRange_max.z);
             }
             else

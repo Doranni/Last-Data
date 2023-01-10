@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 8127572993923696749}
   - component: {fileID: 372817332777318110}
   - component: {fileID: 7478971880806413374}
-  - component: {fileID: 8407044725761457820}
+  - component: {fileID: -8796670441654487670}
   m_Layer: 7
   m_Name: Asteroid1 LOD0
   m_TagString: Asteroid
@@ -116,7 +116,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1449958675254920611}
   serializedVersion: 2
-  m_Mass: 50
+  m_Mass: 100
   m_Drag: 1
   m_AngularDrag: 0
   m_UseGravity: 0
@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65d8f637dc9c75240988b42b5b34be94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 0
+  maxHealth: 50
 --- !u!114 &8127572993923696749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,7 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a21fa0cab9837da4fbcc42d8294c88cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  passiveDamage: 0
+  passiveDamage: 30
 --- !u!114 &372817332777318110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,7 +238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19a8a33722298ab4b84e5d771e2e2ac7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8407044725761457820
+--- !u!114 &-8796670441654487670
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

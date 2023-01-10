@@ -5,8 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(ShowDistance))]
 public class AsteroidController : MonoBehaviour
 {
-    
-
     private Health astHealth;
     private PooledObject pooledObj;
     private ShowDistance showDistance;
