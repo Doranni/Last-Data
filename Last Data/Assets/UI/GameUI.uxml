@@ -122,16 +122,18 @@
             <ui:Label display-tooltip-when-elided="true" name="lbl_laserCharge_value" text="100/100" class="Stats_Label" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="Resouces" style="align-items: flex-end; right: 0; position: absolute; display: none;">
-        <ui:VisualElement class="MainScreen_LabelRight" style="width: 440px; height: 50px; background-image: url(&apos;project://database/Assets/UI%20images/label%20right.png?fileID=2800000&amp;guid=8c6c2ab6b2dfc6d4f8b0309bf616cab7&amp;type=3#label right&apos;);">
-            <ui:VisualElement class="Stats_Icon" style="display: flex; background-image: url(&apos;project://database/Assets/UI%20images/shuttle.png?fileID=2800000&amp;guid=8a1d29c506f128d49b575d0b7a89a1d4&amp;type=3#shuttle&apos;); width: 30px; height: 30px; margin-right: 0; margin-left: 0;" />
-            <ui:Label text="100/100" display-tooltip-when-elided="true" class="Stats_Label" />
+    <ui:VisualElement name="Resouces" style="align-items: flex-end; right: 0; position: absolute;">
+        <ui:VisualElement name="Metals" class="MainScreen_LabelRight" style="width: 440px; height: 50px; background-image: url(&apos;project://database/Assets/UI%20images/label%20right.png?fileID=2800000&amp;guid=8c6c2ab6b2dfc6d4f8b0309bf616cab7&amp;type=3#label right&apos;);">
+            <ui:VisualElement class="Stats_Icon" style="display: flex; background-image: none; width: 30px; height: 30px; margin-right: 0; margin-left: 0;" />
+            <ui:Label display-tooltip-when-elided="true" name="lbl_metals_value" class="Stats_Label" />
         </ui:VisualElement>
-        <ui:VisualElement class="MainScreen_LabelRight" style="width: 340px; height: 50px; background-image: url(&apos;project://database/Assets/UI%20images/label%20right.png?fileID=2800000&amp;guid=8c6c2ab6b2dfc6d4f8b0309bf616cab7&amp;type=3#label right&apos;);">
-            <ui:Label text="Label" display-tooltip-when-elided="true" class="Stats_Label" />
+        <ui:VisualElement name="Uranium" class="MainScreen_LabelRight" style="width: 340px; height: 50px; background-image: url(&apos;project://database/Assets/UI%20images/label%20right.png?fileID=2800000&amp;guid=8c6c2ab6b2dfc6d4f8b0309bf616cab7&amp;type=3#label right&apos;);">
+            <ui:VisualElement class="Stats_Icon" style="display: flex; background-image: none; width: 30px; height: 30px; margin-right: 0; margin-left: 0;" />
+            <ui:Label display-tooltip-when-elided="true" name="lbl_uranium_value" class="Stats_Label" />
         </ui:VisualElement>
-        <ui:VisualElement class="MainScreen_LabelRight" style="width: 260px; height: 50px; background-image: url(&apos;project://database/Assets/UI%20images/label%20right.png?fileID=2800000&amp;guid=8c6c2ab6b2dfc6d4f8b0309bf616cab7&amp;type=3#label right&apos;);">
-            <ui:Label text="Label" display-tooltip-when-elided="true" class="Stats_Label" />
+        <ui:VisualElement name="RawData" class="MainScreen_LabelRight" style="width: 260px; height: 50px; background-image: url(&apos;project://database/Assets/UI%20images/label%20right.png?fileID=2800000&amp;guid=8c6c2ab6b2dfc6d4f8b0309bf616cab7&amp;type=3#label right&apos;);">
+            <ui:VisualElement class="Stats_Icon" style="display: flex; background-image: none; width: 30px; height: 30px; margin-right: 0; margin-left: 0;" />
+            <ui:Label display-tooltip-when-elided="true" name="lbl_rawData_value" class="Stats_Label" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

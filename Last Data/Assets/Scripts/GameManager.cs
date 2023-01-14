@@ -4,7 +4,6 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private float speedMin = 5, speedMax = 30, accelerationTime = 5;
-    [SerializeField] private Fuel shipFuel;
     [SerializeField] private float fuelConsumptionMax = 0.1f, fuelConsumptionMin = 0.05f;
     [SerializeField] private Vector3 meteoritesSpawnRange_min = new (-400, -200, 50), 
         meteoritesSpawnRange_max = new (400, 200, 1000);
@@ -80,7 +79,7 @@ public class GameManager : Singleton<GameManager>
 
     private void UseFuel()
     {
-        shipFuel.ChangeFuelAmount(
+        ShipStorage.Instance.Fuel.ChangeAmount(
             -(Mathf.Lerp(fuelConsumptionMax, fuelConsumptionMin, Mathf.InverseLerp(speedMin, speedMax, Speed))
             * Time.deltaTime));
     }

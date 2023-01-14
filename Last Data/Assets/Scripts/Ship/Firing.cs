@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Collections;
 
 [RequireComponent(typeof(AudioSource))]
-[RequireComponent(typeof(LaserCharge))]
 public class Firing : MonoBehaviour
 {
     [SerializeField] private float laserPower, laserLengthRange, laserAngleRande, laserChargeConsumption;
     [SerializeField] private GameObject laserLeft, laserRight;
     [SerializeField] private LayerMask lMask_Asteroids;
 
-    private LaserCharge laserCharge;
     private LineRenderer laserLeft_lineRenderer, laserRight_lineRenderer;
     private List<Collider> targetsLeftAvailable = new(), targetsRightAvailable = new();
     private (bool isSet, MeteoriteController astController, Collider collider) targetLeft = (false, null, null), 
@@ -34,7 +32,6 @@ public class Firing : MonoBehaviour
 
     private void Awake()
     {
-        laserCharge = GetComponent<LaserCharge>();
         laserLeft_lineRenderer = laserLeft.GetComponentInChildren<LineRenderer>();
         laserRight_lineRenderer = laserRight.GetComponentInChildren<LineRenderer>();
         audioSource = GetComponent<AudioSource>();
@@ -73,7 +70,7 @@ public class Firing : MonoBehaviour
 
     private void FireRight_Started()
     {
-        if (laserCharge.CurrentCharge > 0)
+        if (ShipStorage.Instance.LaserCharge.CurrentAmount > 0)
         {
             laserRight.SetActive(true);
             isLaserRightActive = true;
@@ -97,7 +94,7 @@ public class Firing : MonoBehaviour
 
     private void FireLeft_Started()
     {
-        if (laserCharge.CurrentCharge > 0)
+        if (ShipStorage.Instance.LaserCharge.CurrentAmount > 0)
         {
             laserLeft.SetActive(true);
             isLaserLeftActive = true;
@@ -185,7 +182,7 @@ public class Firing : MonoBehaviour
                     break;
                 }
         }
-        laserCharge.ChangeCharge(-laserChargeConsumption * Time.deltaTime);
+        ShipStorage.Instance.LaserCharge.ChangeAmount(-laserChargeConsumption * Time.deltaTime);
     }
 
     private void SetLaserPoints(Laser laser, bool toReset = false)
@@ -352,7 +349,7 @@ public class Firing : MonoBehaviour
     {
         if (isLaserLeftActive)
         {
-            if (laserCharge.CurrentCharge > 0)
+            if (ShipStorage.Instance.LaserCharge.CurrentAmount > 0)
             {
                 if (!IsTargetValid(Laser.left))
                 {
@@ -368,7 +365,7 @@ public class Firing : MonoBehaviour
         }
         if (isLaserRightActive)
         {
-            if (laserCharge.CurrentCharge > 0)
+            if (ShipStorage.Instance.LaserCharge.CurrentAmount > 0)
             {
                 if (!IsTargetValid(Laser.right))
                 {
