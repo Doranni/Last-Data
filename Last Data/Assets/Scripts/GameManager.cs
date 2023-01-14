@@ -3,11 +3,12 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    [SerializeField] private float speedMin, speedMax, accelerationTime;
+    [SerializeField] private float speedMin = 5, speedMax = 30, accelerationTime = 5;
     [SerializeField] private Fuel shipFuel;
-    [SerializeField] private float fuelConsumptionMax, fuelConsumptionMin;
-    [SerializeField] private Vector3 astSpawnRange_min, astSpawnRange_max;
-    [SerializeField] private Vector2 objDetectRange_min, objDetectRange_max;
+    [SerializeField] private float fuelConsumptionMax = 0.1f, fuelConsumptionMin = 0.05f;
+    [SerializeField] private Vector3 meteoritesSpawnRange_min = new (-400, -200, 50), 
+        meteoritesSpawnRange_max = new (400, 200, 1000);
+    [SerializeField] private Vector2 objDetectRange_min = new (-50, -30), objDetectRange_max = new (50, 30);
 
     public float Speed { get; private set; }
     public float SpeedGoal { get; private set; }
@@ -16,14 +17,14 @@ public class GameManager : Singleton<GameManager>
     private float speedMultiplier;
     private const float speedMaxGoal = 163;
 
-    public Vector3 AstSpawnRange_min => astSpawnRange_min;
-    public Vector3 AstSpawnRange_max => astSpawnRange_max;
+    public Vector3 MeteoriteSpawnRange_min => meteoritesSpawnRange_min;
+    public Vector3 MeteoriteSpawnRange_max => meteoritesSpawnRange_max;
     public Vector2 ObjDetectRange_min => objDetectRange_min;
     public Vector2 ObjDetectRange_max => objDetectRange_max;
     public Vector3 ObjExistRange_min { get; private set; }
     public Vector3 ObjExistRange_max { get; private set; }
 
-    public readonly string tag_asteroids = "Asteroid", tag_ship = "Ship";
+    public readonly string tag_meteorites = "Meteorite", tag_ship = "Ship";
 
     public event Action OnSpeedChanged;
 
@@ -33,8 +34,9 @@ public class GameManager : Singleton<GameManager>
         speedMultiplier = speedMaxGoal / speedMax;
         Speed = speedMin;
         accelerationStep = (speedMax - speedMin) / accelerationTime;
-        ObjExistRange_min = new Vector3(astSpawnRange_min.x - 10, astSpawnRange_min.y - 10, -50);
-        ObjExistRange_max = new Vector3(astSpawnRange_max.x + 10, astSpawnRange_max.y + 10, astSpawnRange_max.z + 10);
+        ObjExistRange_min = new Vector3(meteoritesSpawnRange_min.x - 10, meteoritesSpawnRange_min.y - 10, -50);
+        ObjExistRange_max = new Vector3(meteoritesSpawnRange_max.x + 10, meteoritesSpawnRange_max.y + 10, 
+            meteoritesSpawnRange_max.z + 10);
     }
 
     private void Start()

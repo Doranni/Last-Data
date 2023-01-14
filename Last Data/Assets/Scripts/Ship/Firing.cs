@@ -13,12 +13,12 @@ public class Firing : MonoBehaviour
     private LaserCharge laserCharge;
     private LineRenderer laserLeft_lineRenderer, laserRight_lineRenderer;
     private List<Collider> targetsLeftAvailable = new(), targetsRightAvailable = new();
-    private (bool isSet, AsteroidController astController, Collider collider) targetLeft = (false, null, null), 
+    private (bool isSet, MeteoriteController astController, Collider collider) targetLeft = (false, null, null), 
         targetRight = (false, null, null);
     private bool isLaserLeftActive = false, isLaserRightActive = false;
 
-    public (bool isSet, AsteroidController astController, Collider collider) TargetLeft => targetLeft;
-    public (bool isSet, AsteroidController astController, Collider collider) TargetRight => targetRight;
+    public (bool isSet, MeteoriteController astController, Collider collider) TargetLeft => targetLeft;
+    public (bool isSet, MeteoriteController astController, Collider collider) TargetRight => targetRight;
 
     [SerializeField] private AudioClip audioClip_laserBeamStart, audioClip_laserBeamMiddle, audioClip_laserBeamEnd;
 
@@ -125,13 +125,13 @@ public class Firing : MonoBehaviour
         {
             case Laser.left:
                 {
-                    targetLeft = (true, target.GetComponent<AsteroidController>(), target);
+                    targetLeft = (true, target.GetComponent<MeteoriteController>(), target);
                     targetLeft.astController.LaserTargetSet();
                     break;
                 }
             default:
                 {
-                    targetRight = (true, target.GetComponent<AsteroidController>(), target);
+                    targetRight = (true, target.GetComponent<MeteoriteController>(), target);
                     targetRight.astController.LaserTargetSet();
                     break;
                 }
@@ -310,7 +310,7 @@ public class Firing : MonoBehaviour
     {
         Transform laserTransform;
         Collider targetCollider;
-        AsteroidController targetAstController;
+        MeteoriteController targetAstController;
         switch (laser)
         {
             case Laser.left:

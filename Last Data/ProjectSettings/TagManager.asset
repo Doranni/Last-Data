@@ -5,7 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ship
-  - Asteroid
+  - Meteorite
   layers:
   - Default
   - TransparentFX

@@ -4,7 +4,7 @@ public class ShipController : MonoBehaviour
 {
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.CompareTag(GameManager.Instance.tag_asteroids))
+        if (collision.collider.CompareTag(GameManager.Instance.tag_meteorites))
         {
             Debug.Log("We hit asteroid");
         }
