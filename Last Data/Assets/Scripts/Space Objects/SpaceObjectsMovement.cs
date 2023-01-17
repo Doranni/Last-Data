@@ -14,6 +14,6 @@ public class SpaceObjectsMovement : MonoBehaviour
 
     private void Update()
     {
-        gameObject.transform.Translate(Vector3.back * GameManager.Instance.Speed * Time.deltaTime, Space.World);
+        gameObject.transform.Translate(Vector3.back * GameManager.Instance.SpeedReal * Time.deltaTime, Space.World);
     }
 }

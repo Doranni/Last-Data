@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class EffectsController : MonoBehaviour
 {
-    [SerializeField] private ObjectPool asteroidExplosionPool, shipDamagePool;
+    [SerializeField] private ObjectPool meteoriteExplosionPool, shipDamagePool;
 
     private static EffectsController instance;
 
@@ -12,14 +12,14 @@ public class EffectsController : MonoBehaviour
         instance = this;
     }
 
-    public static void PlayAsteroidExplosionEffect(Vector3 position)
+    public static void PlayMeteoriteExplosionEffect(Vector3 position)
     {
-        instance.PlayAsteroidExplosionEffect_private(position);
+        instance.PlayMeteoriteExplosionEffect_private(position);
     }
 
-    private void PlayAsteroidExplosionEffect_private(Vector3 position)
+    private void PlayMeteoriteExplosionEffect_private(Vector3 position)
     {
-        ParticleSystem effect = asteroidExplosionPool.GetPooledObject().GetComponent<ParticleSystem>();
+        ParticleSystem effect = meteoriteExplosionPool.GetPooledObject().GetComponent<ParticleSystem>();
         effect.transform.position = position;
         effect.Play(true);
     }

@@ -2,27 +2,29 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    [SerializeField] private ObjectPool asteroidPool;
-    [SerializeField] private float astSpawnDelay_min, astSpawnDelay_max;
-    [SerializeField] private float InDetectRangeFraction;
-    [SerializeField] private uint firstAsteroidsAmount;
+    [SerializeField] private ObjectPool meteoritesPool;
+    [SerializeField] private float meteoriteSpawnDelay_min = 1, meteoriteSpawnDelay_max = 8;
+    [SerializeField]
+    [Range(0,1)]
+    private float InDetectRangeFraction = 0.2f;
+    [SerializeField] private uint firstMeteoritesAmount = 50;
 
     private void Start()
     {
-        for (int i = 0; i < firstAsteroidsAmount; i++)
+        for (int i = 0; i < firstMeteoritesAmount; i++)
         {
-            SpawnAsteroid(true);
+            SpawnMeteorite(true);
         }
-        InvokeRepeating("SpawnAsteroid", 
-            Random.Range(astSpawnDelay_min, astSpawnDelay_max) / GameManager.Instance.Speed,
-            Random.Range(astSpawnDelay_min, astSpawnDelay_max) / GameManager.Instance.Speed);
+        InvokeRepeating("SpawnMeteorite", 
+            Random.Range(meteoriteSpawnDelay_min, meteoriteSpawnDelay_max) / GameManager.Instance.SpeedReal,
+            Random.Range(meteoriteSpawnDelay_min, meteoriteSpawnDelay_max) / GameManager.Instance.SpeedReal);
     }
 
-    private void SpawnAsteroid() => SpawnAsteroid(false);
+    private void SpawnMeteorite() => SpawnMeteorite(false);
 
-    private void SpawnAsteroid(bool firstSpawn)
+    private void SpawnMeteorite(bool firstSpawn)
     {
-        var ast = asteroidPool.GetPooledObject();
+        var ast = meteoritesPool.GetPooledObject();
         float rangeResult = Random.value;
         if (rangeResult > InDetectRangeFraction)
         {
@@ -32,7 +34,7 @@ public class SpawnManager : MonoBehaviour
         {
             ast.gameObject.transform.position = RandomPosition(true, firstSpawn);
         }
-        ast.GetComponent<AsteroidController>().Respawn();
+        ast.GetComponent<MeteoriteController>().Respawn();
         ast.GetComponent<ShowDistance>().ClearOutlining();
     }
 
@@ -44,15 +46,23 @@ public class SpawnManager : MonoBehaviour
             {
                 return new Vector3(Random.Range(GameManager.Instance.ObjDetectRange_min.x, 
                     GameManager.Instance.ObjDetectRange_max.x),
-                    Random.Range(GameManager.Instance.ObjDetectRange_min.y, GameManager.Instance.ObjDetectRange_min.y),
-                    Random.Range(GameManager.Instance.AstSpawnRange_min.z, GameManager.Instance.AstSpawnRange_max.z));
+
+                    Random.Range(GameManager.Instance.ObjDetectRange_min.y, 
+                    GameManager.Instance.ObjDetectRange_max.y),
+
+                    Random.Range(GameManager.Instance.MeteoriteSpawnRange_min.z, 
+                    GameManager.Instance.MeteoriteSpawnRange_max.z));
             }
             else
             {
-                return new Vector3(Random.Range(GameManager.Instance.AstSpawnRange_min.x, 
-                    GameManager.Instance.AstSpawnRange_max.x),
-                    Random.Range(GameManager.Instance.AstSpawnRange_min.y, GameManager.Instance.AstSpawnRange_max.y),
-                    Random.Range(GameManager.Instance.AstSpawnRange_min.z, GameManager.Instance.AstSpawnRange_max.z));
+                return new Vector3(Random.Range(GameManager.Instance.MeteoriteSpawnRange_min.x, 
+                    GameManager.Instance.MeteoriteSpawnRange_max.x),
+
+                    Random.Range(GameManager.Instance.MeteoriteSpawnRange_min.y, 
+                    GameManager.Instance.MeteoriteSpawnRange_max.y),
+
+                    Random.Range(GameManager.Instance.MeteoriteSpawnRange_min.z, 
+                    GameManager.Instance.MeteoriteSpawnRange_max.z));
             }
         }
         else
@@ -60,16 +70,21 @@ public class SpawnManager : MonoBehaviour
             if (inDetectRange)
             {
                 return new Vector3(Random.Range(GameManager.Instance.ObjDetectRange_min.x, 
-                    GameManager.Instance.ObjDetectRange_min.x),
-                    Random.Range(GameManager.Instance.ObjDetectRange_min.y, GameManager.Instance.ObjDetectRange_min.y),
-                    GameManager.Instance.AstSpawnRange_max.z);
+
+                    GameManager.Instance.ObjDetectRange_max.x),
+
+                    Random.Range(GameManager.Instance.ObjDetectRange_min.y, GameManager.Instance.ObjDetectRange_max.y),
+                    GameManager.Instance.MeteoriteSpawnRange_max.z);
             }
             else
             {
-                return new Vector3(Random.Range(GameManager.Instance.AstSpawnRange_min.x, 
-                    GameManager.Instance.AstSpawnRange_max.x),
-                    Random.Range(GameManager.Instance.AstSpawnRange_min.y, GameManager.Instance.AstSpawnRange_max.y),
-                    GameManager.Instance.AstSpawnRange_max.z);
+                return new Vector3(Random.Range(GameManager.Instance.MeteoriteSpawnRange_min.x, 
+                    GameManager.Instance.MeteoriteSpawnRange_max.x),
+
+                    Random.Range(GameManager.Instance.MeteoriteSpawnRange_min.y, 
+                    GameManager.Instance.MeteoriteSpawnRange_max.y),
+
+                    GameManager.Instance.MeteoriteSpawnRange_max.z);
             }
         }
     }

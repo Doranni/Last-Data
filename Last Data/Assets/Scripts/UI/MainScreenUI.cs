@@ -5,8 +5,6 @@ using UnityEngine.UIElements;
 public class MainScreenUI : MonoBehaviour
 {
     [SerializeField] ShipHealth shipHealth;
-    [SerializeField] Fuel shipFuel;
-    [SerializeField] LaserCharge laserCharge;
 
     private VisualElement speedScreen;
     private VisualElement shipStatsScreen;
@@ -15,7 +13,10 @@ public class MainScreenUI : MonoBehaviour
     private Label lbl_shipSpeed;
     private Label lbl_shipHealth;
     private Label lbl_shipFuel;
-    private Label lbl_laserCharge;
+    private Label lbl_charge;
+    private Label lbl_metals;
+    private Label lbl_uranium;
+    private Label lbl_rawData;
 
     const string k_speedScreen = "Speed";
     const string k_shipStatsScreen = "ShipStats";
@@ -24,7 +25,10 @@ public class MainScreenUI : MonoBehaviour
     const string k_lbl_shipSpeed = "lbl_ShipSpeed_value";
     const string k_lbl_shipHealth = "lbl_ShipHealth_value";
     const string k_lbl_shipFuel = "lbl_ShipFuel_value";
-    const string k_lbl_laserCharge = "lbl_laserCharge_value";
+    const string k_lbl_charge = "lbl_charge_value";
+    const string k_lbl_metals = "lbl_metals_value";
+    const string k_lbl_uranium = "lbl_uranium_value";
+    const string k_lbl_rawData = "lbl_rawData_value";
 
     void Awake()
     {
@@ -37,22 +41,31 @@ public class MainScreenUI : MonoBehaviour
         lbl_shipSpeed = rootElement.Q<Label>(k_lbl_shipSpeed);
         lbl_shipHealth = rootElement.Q<Label>(k_lbl_shipHealth);
         lbl_shipFuel = rootElement.Q<Label>(k_lbl_shipFuel);
-        lbl_laserCharge = rootElement.Q<Label>(k_lbl_laserCharge);
+        lbl_charge = rootElement.Q<Label>(k_lbl_charge);
+        lbl_metals = rootElement.Q<Label>(k_lbl_metals);
+        lbl_uranium = rootElement.Q<Label>(k_lbl_uranium);
+        lbl_rawData = rootElement.Q<Label>(k_lbl_rawData);
     }
 
     private void Start()
     {
         GameManager.Instance.OnSpeedChanged += DisplaySpeed;
         shipHealth.OnChangeHealth += DisplayShipHealth;
+        ShipStorage.Instance.OnMetalsChanged += DisplayMetals;
+        ShipStorage.Instance.OnUraniumChanges += DisplayUranium;
+        ShipStorage.Instance.OnRawDataChanged += DisplayRawData;
 
         DisplaySpeed();
         DisplayShipHealth(shipHealth.GetTotalHealth());
+        DisplayMetals(ShipStorage.Instance.ShowResAmount(ResourceType.metals));
+        DisplayUranium(ShipStorage.Instance.ShowResAmount(ResourceType.uranium));
+        DisplayRawData(ShipStorage.Instance.ShowResAmount(ResourceType.rawData));
     }
 
     private void Update()
     {
-        DisplayFuel();
-        DisplayLaserCharge();
+        DisplayFuel(ShipStorage.Instance.ShowResAmount(ResourceType.fuel));
+        DisplayLaserCharge(ShipStorage.Instance.ShowResAmount(ResourceType.charge));
     }
 
     private void DisplayShipHealth((float currentValue, float maxValue) value)
@@ -62,22 +75,40 @@ public class MainScreenUI : MonoBehaviour
 
     private void DisplaySpeed()
     {
-        lbl_shipSpeed.text = GameManager.Instance.SpeedGoal.ToString("0") + " km/s";
+        lbl_shipSpeed.text = GameManager.Instance.SpeedToDisplay.ToString("0") + " km/s";
     }
 
-    private void DisplayFuel()
+    private void DisplayFuel((float currentAmount, float capacity) value)
     {
-        lbl_shipFuel.text = shipFuel.CurrentFuelAmount.ToString("0") + "/" + shipFuel.FuelCapasity.ToString("0");
+        lbl_shipFuel.text = value.currentAmount.ToString("0") + "/" + value.capacity.ToString("0");
     }
 
-    private void DisplayLaserCharge()
+    private void DisplayLaserCharge((float currentAmount, float capacity) value)
     {
-        lbl_laserCharge.text = laserCharge.CurrentCharge.ToString("0") + "/" + laserCharge.ChargeCapasity.ToString("0");
+        lbl_charge.text = value.currentAmount.ToString("0") + "/" + value.capacity.ToString("0");
+    }
+
+    private void DisplayMetals((float currentAmount, float capacity) value)
+    {
+        lbl_metals.text = value.currentAmount.ToString("0") + "/" + value.capacity.ToString("0");
+    }
+
+    private void DisplayUranium((float currentAmount, float capacity) value)
+    {
+        lbl_uranium.text = value.currentAmount.ToString("0") + "/" + value.capacity.ToString("0");
+    }
+
+    private void DisplayRawData((float currentAmount, float capacity) value)
+    {
+        lbl_rawData.text = value.currentAmount.ToString("0") + "/" + value.capacity.ToString("0");
     }
 
     private void OnDestroy()
     {
         GameManager.Instance.OnSpeedChanged -= DisplaySpeed;
         shipHealth.OnChangeHealth -= DisplayShipHealth;
+        ShipStorage.Instance.OnMetalsChanged -= DisplayMetals;
+        ShipStorage.Instance.OnUraniumChanges -= DisplayUranium;
+        ShipStorage.Instance.OnRawDataChanged -= DisplayRawData;
     }
 }

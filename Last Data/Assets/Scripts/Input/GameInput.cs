@@ -62,6 +62,15 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Vacuum"",
+                    ""type"": ""Button"",
+                    ""id"": ""14c80be3-6ac4-4d57-8455-af3c3a90702f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -205,6 +214,17 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Fire Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""808581a7-a094-403d-8b02-e7e305e356bb"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Vacuum"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -796,6 +816,7 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
         m_Ship_FireLeft = m_Ship.FindAction("Fire Left", throwIfNotFound: true);
         m_Ship_FireRight = m_Ship.FindAction("Fire Right", throwIfNotFound: true);
         m_Ship_Acceleration = m_Ship.FindAction("Acceleration", throwIfNotFound: true);
+        m_Ship_Vacuum = m_Ship.FindAction("Vacuum", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -871,6 +892,7 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Ship_FireLeft;
     private readonly InputAction m_Ship_FireRight;
     private readonly InputAction m_Ship_Acceleration;
+    private readonly InputAction m_Ship_Vacuum;
     public struct ShipActions
     {
         private @GameInput m_Wrapper;
@@ -879,6 +901,7 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
         public InputAction @FireLeft => m_Wrapper.m_Ship_FireLeft;
         public InputAction @FireRight => m_Wrapper.m_Ship_FireRight;
         public InputAction @Acceleration => m_Wrapper.m_Ship_Acceleration;
+        public InputAction @Vacuum => m_Wrapper.m_Ship_Vacuum;
         public InputActionMap Get() { return m_Wrapper.m_Ship; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -900,6 +923,9 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
                 @Acceleration.started -= m_Wrapper.m_ShipActionsCallbackInterface.OnAcceleration;
                 @Acceleration.performed -= m_Wrapper.m_ShipActionsCallbackInterface.OnAcceleration;
                 @Acceleration.canceled -= m_Wrapper.m_ShipActionsCallbackInterface.OnAcceleration;
+                @Vacuum.started -= m_Wrapper.m_ShipActionsCallbackInterface.OnVacuum;
+                @Vacuum.performed -= m_Wrapper.m_ShipActionsCallbackInterface.OnVacuum;
+                @Vacuum.canceled -= m_Wrapper.m_ShipActionsCallbackInterface.OnVacuum;
             }
             m_Wrapper.m_ShipActionsCallbackInterface = instance;
             if (instance != null)
@@ -916,6 +942,9 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
                 @Acceleration.started += instance.OnAcceleration;
                 @Acceleration.performed += instance.OnAcceleration;
                 @Acceleration.canceled += instance.OnAcceleration;
+                @Vacuum.started += instance.OnVacuum;
+                @Vacuum.performed += instance.OnVacuum;
+                @Vacuum.canceled += instance.OnVacuum;
             }
         }
     }
@@ -1076,6 +1105,7 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
         void OnFireLeft(InputAction.CallbackContext context);
         void OnFireRight(InputAction.CallbackContext context);
         void OnAcceleration(InputAction.CallbackContext context);
+        void OnVacuum(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

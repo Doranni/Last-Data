@@ -465,8 +465,7 @@ GameObject:
   - component: {fileID: 4074535782886311}
   - component: {fileID: 7839527828788885391}
   - component: {fileID: 4074535782886316}
-  - component: {fileID: 2588407275267946099}
-  - component: {fileID: 4074535782886317}
+  - component: {fileID: 4074535782886323}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Ship
@@ -545,10 +544,9 @@ MonoBehaviour:
   laserPower: 100
   laserLengthRange: 100
   laserAngleRande: 10
-  laserChargeConsumption: 0.5
   laserLeft: {fileID: 5713417576867569389}
   laserRight: {fileID: 6691828100792382784}
-  lMask_Asteroids:
+  lMask_meteorites:
     serializedVersion: 2
     m_Bits: 128
   audioClip_laserBeamStart: {fileID: 8300000, guid: 491e037f272090d4284ef1d41c20714e, type: 3}
@@ -710,7 +708,7 @@ MonoBehaviour:
   - {fileID: 3689744853622610232}
   - {fileID: 7033196521807163209}
   - {fileID: 769112943682335185}
---- !u!114 &2588407275267946099
+--- !u!114 &4074535782886323
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -719,23 +717,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 9208018150034900965}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d98826f977dd62d4fb6bb63b88118df9, type: 3}
+  m_Script: {fileID: 11500000, guid: 0bd134195a3311f498a116887c5cb09d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chargeCapasity: 80
---- !u!114 &4074535782886317
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9208018150034900965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61400654ddb1d7841b9641fe4ed95703, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fuelCapasity: 120
+  vacuumRange: 20
+  gatherRange: 6
+  vacuumStrength: 50
+  lMask_resources:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &9208144870250333329
 GameObject:
   m_ObjectHideFlags: 0
@@ -1421,10 +1411,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'Laser Beam '
       objectReference: {fileID: 0}
-    - target: {fileID: 9002107943259716233, guid: a7b8c36319ffafb45b830c6044d7fcda, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 9002107943259716234, guid: a7b8c36319ffafb45b830c6044d7fcda, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1491,10 +1477,6 @@ PrefabInstance:
     - target: {fileID: 9002107943259716233, guid: a7b8c36319ffafb45b830c6044d7fcda, type: 3}
       propertyPath: m_Name
       value: 'Laser Beam '
-      objectReference: {fileID: 0}
-    - target: {fileID: 9002107943259716233, guid: a7b8c36319ffafb45b830c6044d7fcda, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9002107943259716234, guid: a7b8c36319ffafb45b830c6044d7fcda, type: 3}
       propertyPath: m_RootOrder

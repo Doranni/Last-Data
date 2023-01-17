@@ -147,14 +147,14 @@ public class DebugUI : MonoBehaviour
 
     void Update()
     {
-        lbl_shipSpeed.text = GameManager.Instance.Speed.ToString("0.00");
+        lbl_shipSpeed.text = GameManager.Instance.SpeedReal.ToString("0.00");
 
         lbl_tLeft_isSet.text = firing.TargetLeft.isSet.ToString();
-        if(firing.TargetLeft.astController != null)
+        if(firing.TargetLeft.meteoriteController != null)
         {
-            lbl_tLeft_astController.text = firing.TargetLeft.astController.ToString();
-            lbl_tLeft_health.text = firing.TargetLeft.astController.GetHealth().currentHealth.ToString("0.00") +
-            "/" + firing.TargetLeft.astController.GetHealth().maxHealth.ToString("0.00");
+            lbl_tLeft_astController.text = firing.TargetLeft.meteoriteController.ToString();
+            lbl_tLeft_health.text = firing.TargetLeft.meteoriteController.GetHealth().currentHealth.ToString("0.00") +
+            "/" + firing.TargetLeft.meteoriteController.GetHealth().maxHealth.ToString("0.00");
         }
         else
         {
@@ -173,11 +173,11 @@ public class DebugUI : MonoBehaviour
         }
 
         lbl_tRight_isSet.text = firing.TargetRight.isSet.ToString();
-        if (firing.TargetRight.astController != null)
+        if (firing.TargetRight.meteoriteController != null)
         {
-            lbl_tRight_astController.text = firing.TargetRight.astController.ToString();
-            lbl_tRight_health.text = firing.TargetRight.astController.GetHealth().currentHealth.ToString("0.00") +
-            "/" + firing.TargetRight.astController.GetHealth().maxHealth.ToString("0.00");
+            lbl_tRight_astController.text = firing.TargetRight.meteoriteController.ToString();
+            lbl_tRight_health.text = firing.TargetRight.meteoriteController.GetHealth().currentHealth.ToString("0.00") +
+            "/" + firing.TargetRight.meteoriteController.GetHealth().maxHealth.ToString("0.00");
         }
         else
         {

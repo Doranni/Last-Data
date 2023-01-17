@@ -20,9 +20,7 @@ public class ObjectPool : MonoBehaviour
         for (int i = 0; i < initPoolSize; i++)
         {
             instance = Instantiate(objectToPool[Random.Range(0, objectToPool.Length)], gameObject.transform);
-            instance.Pool = this;
-            instance.gameObject.SetActive(false);
-            instance.Initialize();
+            instance.Initialize(this);
             list.Add(instance);
         }
     }
@@ -32,18 +30,16 @@ public class ObjectPool : MonoBehaviour
         if (list.Count == 0)
         {
             PooledObject newInstance = Instantiate(objectToPool[Random.Range(0, objectToPool.Length)], gameObject.transform);
-            newInstance.Pool = this;
-            return newInstance;
+            newInstance.Initialize(this);
+            return newInstance.Get();
         }
         int index = Random.Range(0, list.Count);
         PooledObject nextInstance = list[index];
         list.RemoveAt(index);
-        nextInstance.gameObject.SetActive(true);
-        return nextInstance;
+        return nextInstance.Get();
     }
     public void ReturnToPool(PooledObject pooledObject)
     {
         list.Add(pooledObject);
-        pooledObject.gameObject.SetActive(false);
     }
 }

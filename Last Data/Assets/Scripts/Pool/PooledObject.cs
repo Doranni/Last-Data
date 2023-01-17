@@ -1,23 +1,32 @@
 using System;
 using UnityEngine;
 
-public class PooledObject : MonoBehaviour 
+public class PooledObject : MonoBehaviour
 {
-    private ObjectPool pool;
-    public ObjectPool Pool { get => pool; set => pool = value; }
+    public ObjectPool Pool { get; private set; }
 
-    public void Release()
+    public virtual void Initialize(ObjectPool pool)
     {
-        if (pool != null)
-        {
-            pool.ReturnToPool(this);
-        }
-        else
+        Pool = pool;
+        gameObject.SetActive(false);
+    }
+
+    public virtual PooledObject Get()
+    {
+        gameObject.SetActive(true);
+        return this;
+    }
+
+    public virtual void Release()
+    {
+        if (Pool == null)
         {
             Destroy(gameObject);
         }
+        else
+        {
+            gameObject.SetActive(false);
+            Pool.ReturnToPool(this);
+        }
     }
-
-    public virtual void Initialize() { }
-
 }
