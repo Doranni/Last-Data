@@ -16,8 +16,8 @@ public class SpawnManager : MonoBehaviour
             SpawnMeteorite(true);
         }
         InvokeRepeating("SpawnMeteorite", 
-            Random.Range(meteoriteSpawnDelay_min, meteoriteSpawnDelay_max) / GameManager.Instance.Speed,
-            Random.Range(meteoriteSpawnDelay_min, meteoriteSpawnDelay_max) / GameManager.Instance.Speed);
+            Random.Range(meteoriteSpawnDelay_min, meteoriteSpawnDelay_max) / GameManager.Instance.SpeedReal,
+            Random.Range(meteoriteSpawnDelay_min, meteoriteSpawnDelay_max) / GameManager.Instance.SpeedReal);
     }
 
     private void SpawnMeteorite() => SpawnMeteorite(false);

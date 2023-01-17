@@ -5,18 +5,18 @@ using System.Collections;
 [RequireComponent(typeof(AudioSource))]
 public class Firing : MonoBehaviour
 {
-    [SerializeField] private float laserPower, laserLengthRange, laserAngleRande, laserChargeConsumption;
+    [SerializeField] private float laserPower, laserLengthRange, laserAngleRande;
     [SerializeField] private GameObject laserLeft, laserRight;
-    [SerializeField] private LayerMask lMask_Asteroids;
+    [SerializeField] private LayerMask lMask_meteorites;
 
     private LineRenderer laserLeft_lineRenderer, laserRight_lineRenderer;
     private List<Collider> targetsLeftAvailable = new(), targetsRightAvailable = new();
-    private (bool isSet, MeteoriteController astController, Collider collider) targetLeft = (false, null, null), 
+    private (bool isSet, MeteoriteController meteoriteController, Collider collider) targetLeft = (false, null, null), 
         targetRight = (false, null, null);
     private bool isLaserLeftActive = false, isLaserRightActive = false;
 
-    public (bool isSet, MeteoriteController astController, Collider collider) TargetLeft => targetLeft;
-    public (bool isSet, MeteoriteController astController, Collider collider) TargetRight => targetRight;
+    public (bool isSet, MeteoriteController meteoriteController, Collider collider) TargetLeft => targetLeft;
+    public (bool isSet, MeteoriteController meteoriteController, Collider collider) TargetRight => targetRight;
 
     [SerializeField] private AudioClip audioClip_laserBeamStart, audioClip_laserBeamMiddle, audioClip_laserBeamEnd;
 
@@ -70,7 +70,7 @@ public class Firing : MonoBehaviour
 
     private void FireRight_Started()
     {
-        if (ShipStorage.Instance.LaserCharge.CurrentAmount > 0)
+        if (ShipStorage.Instance.HasPower())
         {
             laserRight.SetActive(true);
             isLaserRightActive = true;
@@ -94,7 +94,7 @@ public class Firing : MonoBehaviour
 
     private void FireLeft_Started()
     {
-        if (ShipStorage.Instance.LaserCharge.CurrentAmount > 0)
+        if (ShipStorage.Instance.HasPower())
         {
             laserLeft.SetActive(true);
             isLaserLeftActive = true;
@@ -123,13 +123,13 @@ public class Firing : MonoBehaviour
             case Laser.left:
                 {
                     targetLeft = (true, target.GetComponent<MeteoriteController>(), target);
-                    targetLeft.astController.LaserTargetSet();
+                    targetLeft.meteoriteController.LaserTargetSet();
                     break;
                 }
             default:
                 {
                     targetRight = (true, target.GetComponent<MeteoriteController>(), target);
-                    targetRight.astController.LaserTargetSet();
+                    targetRight.meteoriteController.LaserTargetSet();
                     break;
                 }
         }
@@ -141,18 +141,18 @@ public class Firing : MonoBehaviour
         {
             case Laser.left:
                 {
-                    if (targetLeft.astController != null)
+                    if (targetLeft.meteoriteController != null)
                     {
-                        targetLeft.astController.LaserTargetRelease();
+                        targetLeft.meteoriteController.LaserTargetRelease();
                     }
                     targetLeft = (false, null, null);
                     break;
                 }
             default:
                 {
-                    if (targetRight.astController != null)
+                    if (targetRight.meteoriteController != null)
                     {
-                        targetRight.astController.LaserTargetRelease();
+                        targetRight.meteoriteController.LaserTargetRelease();
                     }
                     targetRight = (false, null, null);
                     break;
@@ -169,7 +169,7 @@ public class Firing : MonoBehaviour
                 {
                     if (targetLeft.isSet)
                     {
-                        targetLeft.astController.ChangeHealth(-laserPower * Time.deltaTime);
+                        targetLeft.meteoriteController.ChangeHealth(-laserPower * Time.deltaTime);
                     }
                     break;
                 }
@@ -177,12 +177,12 @@ public class Firing : MonoBehaviour
                 {
                     if (targetRight.isSet)
                     {
-                        targetRight.astController.ChangeHealth(-laserPower * Time.deltaTime);
+                        targetRight.meteoriteController.ChangeHealth(-laserPower * Time.deltaTime);
                     }
                     break;
                 }
         }
-        ShipStorage.Instance.LaserCharge.ChangeAmount(-laserChargeConsumption * Time.deltaTime);
+        ShipStorage.Instance.PowerLaser();
     }
 
     private void SetLaserPoints(Laser laser, bool toReset = false)
@@ -243,8 +243,7 @@ public class Firing : MonoBehaviour
                 }
         }
         targets.Clear();
-        Collider[] overlap = Physics.OverlapSphere(laserTransform.position, laserLengthRange, lMask_Asteroids);
-        string res = "";
+        Collider[] overlap = Physics.OverlapSphere(laserTransform.position, laserLengthRange, lMask_meteorites);
         for (int i = 0; i < overlap.Length; i++)
         {
             Vector3 closestPoint = overlap[i].ClosestPoint(new Vector3(laserTransform.position.x,
@@ -255,12 +254,7 @@ public class Firing : MonoBehaviour
             if (angle <= laserAngleRande && distance < laserLengthRange)
             {
                 targets.Add(overlap[i]);
-                res += overlap[i].transform.position;
             }
-        }
-        if (targets.Count > 0)
-        {
-            Debug.Log($"laser pos - {laserTransform.position}, overlaps - {res}");
         }
     }
 
@@ -307,25 +301,25 @@ public class Firing : MonoBehaviour
     {
         Transform laserTransform;
         Collider targetCollider;
-        MeteoriteController targetAstController;
+        MeteoriteController targetMeteoriteController;
         switch (laser)
         {
             case Laser.left:
                 {
                     laserTransform = laserLeft.transform;
                     targetCollider = targetLeft.collider;
-                    targetAstController = targetLeft.astController;
+                    targetMeteoriteController = targetLeft.meteoriteController;
                     break;
                 }
             default:
                 {
                     laserTransform = laserRight.transform;
                     targetCollider = targetRight.collider;
-                    targetAstController = targetRight.astController;
+                    targetMeteoriteController = targetRight.meteoriteController;
                     break;
                 }
         }
-        if (targetCollider == null || targetAstController.IsDead())
+        if (targetCollider == null || targetMeteoriteController.IsDead())
         {
             ReleaseTarget(laser);
             return false;
@@ -349,7 +343,7 @@ public class Firing : MonoBehaviour
     {
         if (isLaserLeftActive)
         {
-            if (ShipStorage.Instance.LaserCharge.CurrentAmount > 0)
+            if (ShipStorage.Instance.HasPower())
             {
                 if (!IsTargetValid(Laser.left))
                 {
@@ -365,7 +359,7 @@ public class Firing : MonoBehaviour
         }
         if (isLaserRightActive)
         {
-            if (ShipStorage.Instance.LaserCharge.CurrentAmount > 0)
+            if (ShipStorage.Instance.HasPower())
             {
                 if (!IsTargetValid(Laser.right))
                 {

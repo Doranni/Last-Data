@@ -16,9 +16,12 @@ GameObject:
   - component: {fileID: 4912074092419823641}
   - component: {fileID: 4912074092419823622}
   - component: {fileID: 4912074092419823623}
-  m_Layer: 0
+  - component: {fileID: 5826401915306006889}
+  - component: {fileID: 5826401915306006890}
+  - component: {fileID: 5826401915306006891}
+  m_Layer: 8
   m_Name: rock11
-  m_TagString: Untagged
+  m_TagString: Resource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -155,3 +158,56 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotSpeed: 2
+--- !u!114 &5826401915306006889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4912074092419823616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1756e9317f83b04dbdd2cf8b9fa31e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distanceUnreachable: 0
+  distanceFar: 0
+  distanceMid: 0
+  distanceClose: 0
+  colorFar: {r: 0, g: 0, b: 0, a: 0}
+  colorMid: {r: 0, g: 0, b: 0, a: 0}
+  colorClose: {r: 0, g: 0, b: 0, a: 0}
+  colorInteracted: {r: 0, g: 0, b: 0, a: 0}
+  currentDistanceType: 0
+--- !u!114 &5826401915306006890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4912074092419823616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 0}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+--- !u!114 &5826401915306006891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4912074092419823616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fa7d815fe5764b448c2d658df2bbffb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  amount: 10

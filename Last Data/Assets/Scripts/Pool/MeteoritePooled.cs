@@ -3,6 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Health))]
 [RequireComponent(typeof(Damage))]
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Outline))]
 public class MeteoritePooled : PooledObject
 {
     private float scale, mass;
@@ -13,12 +14,16 @@ public class MeteoritePooled : PooledObject
     private Health mHealth;
     private Damage mDamage;
     private Rigidbody mRigidbody;
+    private Outline outline;
+    private Mesh mesh;
 
     private void Awake()
     {
         mHealth = GetComponent<Health>();
         mDamage = GetComponent<Damage>();
         mRigidbody = GetComponent<Rigidbody>();
+        outline = GetComponent<Outline>();
+        mesh = GetComponent<MeshFilter>().mesh;
     }
 
     public override PooledObject Get()

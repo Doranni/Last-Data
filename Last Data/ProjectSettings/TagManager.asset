@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ship
   - Meteorite
+  - Resource
   layers:
   - Default
   - TransparentFX
@@ -14,8 +15,8 @@ TagManager:
   - Water
   - UI
   - Post Processing
-  - Asteroids
-  - 
+  - Meteorites
+  - Resources
   - 
   - 
   - 

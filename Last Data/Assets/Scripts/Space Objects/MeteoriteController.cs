@@ -29,7 +29,7 @@ public class MeteoriteController : MonoBehaviour
 
     private void Death()
     {
-        EffectsController.PlayAsteroidExplosionEffect(transform.position);
+        EffectsController.PlayMeteoriteExplosionEffect(transform.position);
         Debug.Log($"Meteorite: {name} Death, position - {transform.position}, health - {mHealth.CurrentHealth}.");
         pooledObj.Release();
         showDistance.ClearOutlining();

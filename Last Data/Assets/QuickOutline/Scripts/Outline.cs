@@ -102,11 +102,11 @@ public class Outline : MonoBehaviour
         outlineMaskMaterial.name = "OutlineMask (Instance)";
         outlineFillMaterial.name = "OutlineFill (Instance)";
 
-        // Retrieve or generate smooth normals
+        //// Retrieve or generate smooth normals
         LoadSmoothNormals();
 
-        // Apply material properties immediately
-        needsUpdate = true;
+        //// Apply material properties immediately
+        //needsUpdate = true;
     }
 
     void OnEnable()
@@ -200,7 +200,7 @@ public class Outline : MonoBehaviour
         }
     }
 
-    void LoadSmoothNormals()
+    public void LoadSmoothNormals()
     {
 
         // Retrieve or generate smooth normals
@@ -245,6 +245,8 @@ public class Outline : MonoBehaviour
             // Combine submeshes
             CombineSubmeshes(skinnedMeshRenderer.sharedMesh, skinnedMeshRenderer.sharedMaterials);
         }
+
+        needsUpdate = true;
     }
 
     List<Vector3> SmoothNormals(Mesh mesh)

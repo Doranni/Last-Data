@@ -13,4 +13,12 @@ public class ShipController : MonoBehaviour
             Debug.Log("We hit something");
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag(GameManager.Instance.tag_resources))
+        {
+            Debug.Log("We hit resource");
+        }
+    }
 }

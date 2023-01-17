@@ -119,7 +119,7 @@
         </ui:VisualElement>
         <ui:VisualElement name="Charge" class="MainScreen_LabelLeft" style="width: 260px; height: 50px; background-image: url(&apos;project://database/Assets/UI%20images/label%20left.png?fileID=2800000&amp;guid=61503f0976e38e648b3b4610007ae1ca&amp;type=3#label left&apos;);">
             <ui:VisualElement class="Stats_Icon" style="display: flex; width: 30px; height: 30px; background-image: url(&apos;project://database/Assets/UI%20images/Flat%20Icons%20[Free]/Free%20Flat%20Battery%20Smooth%202%20Icon.png?fileID=2800000&amp;guid=82031b80b43cc524fae78ff6c698aee9&amp;type=3#Free Flat Battery Smooth 2 Icon&apos;);" />
-            <ui:Label display-tooltip-when-elided="true" name="lbl_laserCharge_value" text="100/100" class="Stats_Label" />
+            <ui:Label display-tooltip-when-elided="true" name="lbl_charge_value" text="100/100" class="Stats_Label" />
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="Resouces" style="align-items: flex-end; right: 0; position: absolute;">

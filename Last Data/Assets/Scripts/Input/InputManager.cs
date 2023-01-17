@@ -7,7 +7,7 @@ public class InputManager : Singleton<InputManager>
 
     public event Action<InputAction.CallbackContext> OnMove_performed, 
         OnFireLeft_started, OnFireLeft_canceled, OnFireRight_started, OnFireRight_canceled,
-        OnAcceleration_started, onAcceleration_canceled;
+        OnAcceleration_started, OnAcceleration_canceled, OnVacuum_started, OnVacuum_canceled;
 
     public override void Awake()
     {
@@ -26,13 +26,25 @@ public class InputManager : Singleton<InputManager>
         gameInput.Ship.FireRight.canceled += FireRight_canceled;
 
         gameInput.Ship.Acceleration.started += Acceleration_started; 
-        gameInput.Ship.Acceleration.canceled += Acceleration_canceled; 
+        gameInput.Ship.Acceleration.canceled += Acceleration_canceled;
 
+        gameInput.Ship.Vacuum.started += Vacuum_started;
+        gameInput.Ship.Vacuum.canceled += Vacuum_canceled;
+    }
+
+    private void Vacuum_canceled(InputAction.CallbackContext obj)
+    {
+        OnVacuum_canceled?.Invoke(obj);
+    }
+
+    private void Vacuum_started(InputAction.CallbackContext obj)
+    {
+        OnVacuum_started?.Invoke(obj);
     }
 
     private void Acceleration_canceled(InputAction.CallbackContext obj)
     {
-        onAcceleration_canceled?.Invoke(obj);
+        OnAcceleration_canceled?.Invoke(obj);
     }
 
     private void Acceleration_started(InputAction.CallbackContext obj)
@@ -86,5 +98,8 @@ public class InputManager : Singleton<InputManager>
 
         gameInput.Ship.Acceleration.started -= Acceleration_started;
         gameInput.Ship.Acceleration.canceled -= Acceleration_canceled;
+
+        gameInput.Ship.Vacuum.started -= Vacuum_started;
+        gameInput.Ship.Vacuum.canceled -= Vacuum_canceled;
     }
 }
